@@ -4,8 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require('mongoose');
+const passport = require('passport');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
+
+
+//DB Setup
+mongoose.connect('mongodb://127.0.0.1:27017/CodeAnalytics');
+mongoose.connection.on('error', error => console.log(error) );
+mongoose.Promise = global.Promise;
+
+
+require('./config/passport');
 
 var app = express();
 
@@ -20,7 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/auth',authRouter);
+app.use('/users', passport.authenticate('jwt', { session : false }) , usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
