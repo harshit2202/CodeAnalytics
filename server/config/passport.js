@@ -4,23 +4,16 @@ const UserModel = require('../models/UserModel');
 
 //Create a passport middleware to handle user registration
 passport.use('signup', new localStrategy({
-  usernameField : 'email',
-  passwordField : 'password'
-}, async (email, password, done) => {
+  passReqToCallback : true,
+}, async (req , username, password, done) => {
     try {
       
-      
-      //Check if user already exists
-      var user = await UserModel.findOne({ email : email });
-      if(user) {
-        //console.log(user);
-        //console.log("User Already Exists!");
-        return done(null,false, { message : 'Email already used!'});
-      }
-      
-      
+      const firstName = req.body.firstName;
+      const lastName  = req.body.lastName;
+      const email     = req.body.email;
       //Save the information provided by the user to the the database
-      user = await UserModel.create({ email, password });
+      
+      user = await UserModel.create({ firstName , lastName  , username , email , password });
       //Send the user information to the next middleware
       return done(null, user);
     } catch (error) {
@@ -30,12 +23,10 @@ passport.use('signup', new localStrategy({
 
 //Create a passport middleware to handle User login
 passport.use('login', new localStrategy({
-  usernameField : 'email',
-  passwordField : 'password'
-}, async (email, password, done) => {
+}, async (username, password, done) => {
   try {
-    //Find the user associated with the email provided by the user
-    const user = await UserModel.findOne({ email });
+    //Find the user associated with the username provided by the user
+    const user = await UserModel.findOne({ username });
     if( !user ){
       //If the user isn't found in the database, return a message
       return done(null, false, { message : 'User not found'});
@@ -66,9 +57,10 @@ passport.use(new JWTstrategy({
   jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {
   try {
-    //console.log(token);  
+    console.log(token);  
     //Pass the user details to the next middleware
-    return done(null, token.user);
+    //console.log(done.name);
+    return done(null, token.userId);
   } catch (error) {
     done(error);
   }

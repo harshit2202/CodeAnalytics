@@ -3,14 +3,35 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+
+    firstName : {
+      type : String,
+      required : true,
+      maxlength : 50
+    },
+
+    lastName : {
+      type : String,
+      required : false,
+      maxlength : 50,
+    },
+
+    username : {
+      type : String,
+      required : true,
+      index : true,
+      unique : true,
+      maxlength : 50
+    },
     email : {
       type : String,
       required : true,
-      unique : true
+      index : true,
+      unique : true,
     },
     password : {
       type : String,
-      required : true 
+      required : true
     }
 });
 
@@ -37,6 +58,7 @@ UserSchema.pre('save', async function(next){
     return compare;
   }
   
-  const UserModel = mongoose.model('user',UserSchema);
+  const UserModel = mongoose.model('users',UserSchema);
   
+  UserModel.init();
   module.exports = UserModel;
