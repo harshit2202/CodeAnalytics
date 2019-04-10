@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import { BrowserRouter, Switch, Route , Link} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 class Loginscreen extends Component {
@@ -46,7 +47,7 @@ class Loginscreen extends Component {
     }
   }
   componentWillMount(){
-    console.log("Component will mount from LoginScreen.js")
+    console.log("Component will mounfvfvkbkt from LoginScreen.js")
 
     var loginscreen=[];
     loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
@@ -67,6 +68,7 @@ class Loginscreen extends Component {
           <MuiThemeProvider>
             <div>
                <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+                <Link to="/register"><RaisedButton> Got to Register Page </RaisedButton></Link>
            </div>
           </MuiThemeProvider>
         </div>

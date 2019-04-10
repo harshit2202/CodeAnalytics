@@ -1,19 +1,32 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, TextField, RaisedButton } from 'material-ui';
-
+import { Redirect } from 'react-router-dom';
 class Login extends Component {
   
+    setRedirect(){
+        this.setState({
+          redirect: true
+        })
+      }
+      
+      renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/Dashboard' />
+        }
+      }
     handleClick(event){
         
         alert("Login Successful UserName = " + this.state.username + " and Password = " + this.state.password)
+        
     }
     constructor(props) {
       super(props)
     
       this.state = {
          username : '',
-         password : ''
+         password : '',
+         redirect : false
       }
     }
     
@@ -40,6 +53,7 @@ class Login extends Component {
                         <br />
                         <RaisedButton label="Submit" primary={true} style={style}
                             onClick={(event)=>this.handleClick(event)}/>
+       
                     </div>
                 </MuiThemeProvider>
             </div>

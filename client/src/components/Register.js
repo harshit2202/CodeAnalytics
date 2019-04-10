@@ -3,20 +3,69 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 class Register extends Component {
+
+  setRedirect(){
+    this.setState({
+      redirect: true
+    })
+  }
+  
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={
+        {
+          pathname : '/dashboard',
+          state : {
+              username : this.state.username , 
+              email : this.state.email ,
+              name : this.state.first_name + " " + this.state.last_name
+          }
+        }
+      } />
+    }
+  }
+  handleClick()
+  {
+    this.setRedirect();
+    // axios.post('http://172.19.18.166:3000/auth/signup', {
+    //   username : this.state.username,
+    //   firstName : this.state.first_name,
+    //   lastName : this.state.last_name,
+    //   email : this.state.email,
+    //   password : this.state.password
+    // })
+    // .then(function (response) {
+    //   let token = response.data.token;
+    //   if(!token)
+    //   {
+    //     console.log("Error, token not found");
+    //   }
+    //    else
+    //     console.log(token);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+
+  }
   constructor(props){
     super(props);
     this.state={
       first_name:'',
       last_name:'',
       email:'',
-      password:''
+      password:'',
+      username:'',
+      redirect : false
     }
   }
   render() {
     return (
       <div>
+        {this.renderRedirect()}
         <MuiThemeProvider>
           <div>
           <AppBar
@@ -32,6 +81,13 @@ class Register extends Component {
              hintText="Enter your Last Name"
              floatingLabelText="Last Name"
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
+             />
+           <br/>
+           <TextField
+             hintText="Enter your Username"
+             type="text"
+             floatingLabelText="Username"
+             onChange = {(event,newValue) => this.setState({username:newValue})}
              />
            <br/>
            <TextField
