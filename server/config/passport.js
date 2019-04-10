@@ -57,7 +57,6 @@ passport.use(new JWTstrategy({
   jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {
   try {
-    console.log(token);  
     //Pass the user details to the next middleware
     //console.log(done.name);
     return done(null, token.userId);

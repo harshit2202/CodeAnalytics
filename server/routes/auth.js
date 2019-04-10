@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -26,6 +26,7 @@ router.post('/signup' , function (req , res , next) {
 router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {     
         
+
         if(!user)
           return res.json( {error : 'Invalid username or password!'});
 
@@ -33,16 +34,8 @@ router.post('/login', async (req, res, next) => {
           return next(err);
 
         else {
-
-          let token = jwt.sign( { userId : user._id} ,process.env.EXPRESS_SECRET , { expiresIn: '1h' });
-          //Send back the token to the user
-          token = 'Bearer ' + token;
-          return res.json( {
-            data : {
-              user : user._id
-            },
-            token : token
-          })
+          req.user = user._id;
+          return await userController.dashboard(req,res);
         }
     })(req, res, next);
   });
