@@ -1,6 +1,7 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const UserModel = require('../models/UserModel');
+const HandleModel = require('../models/HandleModel');
 
 //Create a passport middleware to handle user registration
 passport.use('signup', new localStrategy({
@@ -14,6 +15,12 @@ passport.use('signup', new localStrategy({
       //Save the information provided by the user to the the database
       
       user = await UserModel.create({ firstName , lastName  , username , email , password });
+      await HandleModel.create({
+        userId : user._id,
+        codeforcesHandle : null,
+        codechefHandle : null,
+        hackerearthHandle : null
+      });
       //Send the user information to the next middleware
       return done(null, user);
     } catch (error) {

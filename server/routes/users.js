@@ -7,4 +7,8 @@ const router = express.Router();
 //Displays information tailored according to the logged in user
 router.get('/dashboard', userController.dashboard);
 
+router.get('/handles' , userController.getHandles);
+
+router.post('/handles' , userController.addHandles);
+
 module.exports = router;

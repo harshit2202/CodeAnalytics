@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
 require('./models/UserModel');
+require('./models/HandleModel');
 
 
 //DB Setup

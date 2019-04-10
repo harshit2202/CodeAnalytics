@@ -9,7 +9,16 @@ const HandleSchema = new Schema( {
     },
     codeforcesHandle : {
         type : String,
-        required : false
+        required : false,
+    },
+    codechefHandle : {
+        type : String,
+        required : false,
+    },
+
+    hackerearthHandle : {
+        type : String,
+        required : false,
     }
 });
 
