@@ -32,6 +32,11 @@ const UserSchema = new Schema({
     password : {
       type : String,
       required : true
+    },
+
+    isLoggedIn : {
+      type : Boolean,
+      required : true
     }
 });
 
@@ -60,5 +65,7 @@ UserSchema.pre('save', async function(next){
   
   const UserModel = mongoose.model('users',UserSchema);
   
-  UserModel.init();
+  UserModel.init().then(function(E) {
+    console.log("Built Indexes on User Model");
+  });
   module.exports = UserModel;
