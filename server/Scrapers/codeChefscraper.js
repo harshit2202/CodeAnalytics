@@ -50,13 +50,19 @@ async function myfunc(){
  	await browser.close();
 
  	 	
-
+	let jsonArr = [];
  	console.log(subarr.length);
 	for(let i=0;i<subarr.length;i+=4){
-
+		jsonArr.push({
+			dateTime : subarr[i],
+			questionID: subarr[i+1],
+			submissionStatus:subarr[i+2],
+			languageUsed: subarr[i+3]
+		})
 		console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 		// fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 	}
+	return jsonArr;
 
 };
 
