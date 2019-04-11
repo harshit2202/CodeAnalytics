@@ -3,13 +3,13 @@ const cheerio = require("cheerio"); //to parse the scraped data
 // const fs = require("fs-extra"); //file read write
 const puppeteer = require('puppeteer'); // Headless Browser
 
-let user = "mridul1809";
-let subarr = [];
-let url = 'https://www.codechef.com/users/' + user;
+
+
 let timeStart;
 
-async function myfunc(){
- 	let browser = await puppeteer.launch({headless:true});
+async function codeChefscraper(user){ 
+	let url = 'https://www.codechef.com/users/' + user;
+	let browser = await puppeteer.launch({headless:true});
  	let page = await browser.newPage();
  	
  	timeStart = (new Date()).getTime();
@@ -66,7 +66,7 @@ async function myfunc(){
 
 };
 
-myfunc();
+
 
 //function to fectch data form the acquired html
 function fetchData(data){
@@ -105,3 +105,5 @@ function fetchNumberOfPages(data){
 function fetchtime(){
 	return (((new Date).getTime() - timeStart)/1000) + " seconds";
 }
+
+export default codeChefscraper;
