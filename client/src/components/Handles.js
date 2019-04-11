@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
-class Register extends Component {
+class Handles extends Component {
 
   setRedirect(){
     this.setState({
@@ -20,11 +20,12 @@ class Register extends Component {
     if (this.state.redirect) {
       return <Redirect to={
         {
-          pathname : '/handles',
+          pathname : '/dashboard',
           state : {
-              username : this.state.username , 
-              email : this.state.email ,
-              name : this.state.first_name + " " + this.state.last_name
+              codechefhandle : this.state.codechefhandle , 
+              codeforceshandle : this.state.codeforceshandle ,
+              hackerearthhandle : this.state.hackerearthhandle,
+              email : "ef",
           }
         }
       } />
@@ -69,11 +70,9 @@ class Register extends Component {
   constructor(props){
     super(props);
     this.state={
-      first_name:'',
-      last_name:'',
-      email:'',
-      password:'',
-      username:'',
+      codechefhandle:'',
+      codeforceshandle:'',
+      hackerearthhandle:'',
       redirect : false
     }
   }
@@ -84,41 +83,28 @@ class Register extends Component {
         <MuiThemeProvider>
           <div>
           <AppBar
-             title="Register"
+             title="Enter Your Handles"
            />
            <TextField
              hintText="Enter your First Name"
-             floatingLabelText="First Name"
-             onChange = {(event,newValue) => this.setState({first_name:newValue})}
+             floatingLabelText="CodeChef Handle"
+             onChange = {(event,newValue) => this.setState({codechefhandle:newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
-             onChange = {(event,newValue) => this.setState({last_name:newValue})}
+             floatingLabelText="CodeForces Handle"
+             onChange = {(event,newValue) => this.setState({codeforceshandle:newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Username"
              type="text"
-             floatingLabelText="Username"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
+             floatingLabelText="Hackerearth Handle"
+             onChange = {(event,newValue) => this.setState({hackerearthhandle:newValue})}
              />
            <br/>
-           <TextField
-             hintText="Enter your Email"
-             type="email"
-             floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({email:newValue})}
-             />
-           <br/>
-           <TextField
-             type = "password"
-             hintText="Enter your Password"
-             floatingLabelText="Password"
-             onChange = {(event,newValue) => this.setState({password:newValue})}
-             />
-           <br/>
+           
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick2(event)}/>
           </div>
          </MuiThemeProvider>
@@ -129,4 +115,4 @@ class Register extends Component {
 const style = {
   margin: 15,
 };
-export default Register;
+export default Handles;

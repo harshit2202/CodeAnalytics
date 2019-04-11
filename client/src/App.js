@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Dash from './components/Dash';
+import Handles from './components/Handles';
 class App extends Component {
   render() {
     return (
@@ -18,8 +19,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/dash" component={Dash} />
-          
-          
+          <Route path="/handles" component={Handles} />
         </Switch>
         </BrowserRouter>
       </div>

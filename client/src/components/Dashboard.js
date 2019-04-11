@@ -45,22 +45,17 @@ class Dashboard extends Component {
                  </td>
                  <td className="handles"> 
                     <div>
-                      <RaisedButton style={{width : "200px"}}>  Codechef Profile  </RaisedButton>
+                      <RaisedButton style={{width : "200px"}} href={`https://www.codechef.com/users/${this.state.username}`}>  Codechef Profile  </RaisedButton>
                     </div>
                  </td>
                  <td className="handles"> 
                     <div>
-                    <RaisedButton style={{width : "200px"}}>  Codeforces Profile  </RaisedButton>
+                    <RaisedButton style={{width : "200px"}} href={`https://codeforces.com/profile/${this.state.username}`}>  Codeforces Profile  </RaisedButton>
                     </div>
                  </td>
                  <td className="handles"> 
                     <div>
-                    <RaisedButton style={{width : "200px"}}>  Hackerearth Profile  </RaisedButton>
-                    </div>
-                 </td>
-                 <td className="handles"> 
-                    <div>
-                    <RaisedButton style={{width : "200px"}}>  Spoj Profile  </RaisedButton>
+                    <RaisedButton style={{width : "200px"}} href={`https://www.hackerearth.com/@${this.state.username}`} >  Hackerearth Profile  </RaisedButton>
                     </div>
                  </td>
                </tr>

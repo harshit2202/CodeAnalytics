@@ -1,6 +1,6 @@
 "use-strict"
 const cheerio = require("cheerio"); //to parse the scraped data
-const fs = require("fs-extra"); //file read write
+// const fs = require("fs-extra"); //file read write
 const puppeteer = require('puppeteer'); // Headless Browser
 
 let user = "mridul1809";
@@ -53,7 +53,9 @@ async function myfunc(){
 
  	console.log(subarr.length);
 	for(let i=0;i<subarr.length;i+=4){
-		fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
+
+		console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
+		// fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 	}
 
 };

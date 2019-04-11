@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import SimpleTable from './Table.js';
 
 function TabContainer(props) {
   return (
@@ -50,7 +51,7 @@ class SimpleTabs extends React.Component {
             
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Recent Submissions</TabContainer>}
+        {value === 0 && <TabContainer> <SimpleTable /> </TabContainer>}
         {value === 1 && <TabContainer>Statistics</TabContainer>}
         {value === 2 && <TabContainer>HeatMap</TabContainer>}
         {value === 3 && <TabContainer>Ratings</TabContainer>}
