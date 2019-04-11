@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer'); // Headless Browser
 
 let timeStart;
 async function usertester(user){
-    let url = 'https://www.codechef.com/users/' + user; 
+    let url = 'https://www.hackerearth.com/@' + user; 
     let browser = await puppeteer.launch({headless:true});
  	let page = await browser.newPage();
  	console.log("Started Browser");
@@ -35,11 +35,11 @@ async function usertester(user){
     else
         return false; 	
 };
-usertester("yash_code_gu");
+usertester("sy5691");
 //function to fetch data form the acquired html
 function fetchData(data){
  const $ = cheerio.load(data); 
-    if($('.err-message').text()=="Could not find page you requested for.")
+    if($('a').text()=="Go to Homepage")
         return false;
     else 
         return true;    
