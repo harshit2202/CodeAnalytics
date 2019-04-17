@@ -14,6 +14,8 @@ var authRouter = require('./routes/auth');
 
 require('./models/UserModel');
 require('./models/HandleModel');
+require('./models/ProblemModel');
+require('./models/SubmissionModel');
 
 
 //DB Setup
