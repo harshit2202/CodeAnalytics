@@ -3,13 +3,13 @@ const cheerio = require("cheerio"); //to parse the scraped data
 // const fs = require("fs-extra"); //file read write
 const puppeteer = require('puppeteer'); // Headless Browser
 
-let user = "mridul1809";
-let subarr = [];
-let url = 'https://www.codechef.com/users/' + user;
+
+
 let timeStart;
 
-async function myfunc(){
- 	let browser = await puppeteer.launch({headless:true});
+async function codeChefscraper(user){ 
+	let url = 'https://www.codechef.com/users/' + user;
+	let browser = await puppeteer.launch({headless:true});
  	let page = await browser.newPage();
  	
  	timeStart = (new Date()).getTime();
@@ -50,17 +50,23 @@ async function myfunc(){
  	await browser.close();
 
  	 	
-
+	let jsonArr = [];
  	console.log(subarr.length);
 	for(let i=0;i<subarr.length;i+=4){
-
+		jsonArr.push({
+			dateTime : subarr[i],
+			questionID: subarr[i+1],
+			submissionStatus:subarr[i+2],
+			languageUsed: subarr[i+3]
+		})
 		console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 		// fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 	}
+	return jsonArr;
 
 };
 
-myfunc();
+
 
 //function to fectch data form the acquired html
 function fetchData(data){
@@ -99,3 +105,5 @@ function fetchNumberOfPages(data){
 function fetchtime(){
 	return (((new Date).getTime() - timeStart)/1000) + " seconds";
 }
+
+export default codeChefscraper;

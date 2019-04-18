@@ -4,13 +4,13 @@ const tokenController =  require('../controllers/tokenController')
 
 exports.dashboard = async function(req , res) {
 
-    const user = await UserModel.findOne({_id : req.user});
+    const user = req.user;
     
     var ret = { data : { user }};
     ret.data.user.password = '';
 
     //Send new token in headers of the response
-    res.set('Authorization' , tokenController.getToken(user._id));
+    ret.token = tokenController.getToken(user._id);
 
     return res.json(ret);
 
@@ -54,4 +54,28 @@ exports.addHandles = async function(req,res) {
         res.statusCode = 500;
         return res.json( { error : "Some Error Occured"});
     }
+}
+
+exports.logout = async function(req,res) {
+    try {
+        await UserModel.updateOne( { _id : req.user._id } , { isLoggedIn : false });
+        return res.json({message : "success"});
+    }
+    catch(error) {
+        res.statusCode = 500;
+        return res.json( { error : "Some Error Occured"});
+    }
+
+}
+
+exports.validate = async function (req,res,next) {
+
+    const user = await UserModel.findOne({_id : req.user});
+
+    if(user.isLoggedIn == false) {
+        res.statusCode = 401;
+        return res.json({error : "Unauthorized"});
+    }
+    req.user = user;
+    next();
 }

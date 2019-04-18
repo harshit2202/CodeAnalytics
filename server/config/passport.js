@@ -14,7 +14,7 @@ passport.use('signup', new localStrategy({
       const email     = req.body.email;
       //Save the information provided by the user to the the database
       
-      user = await UserModel.create({ firstName , lastName  , username , email , password });
+      user = await UserModel.create({ firstName , lastName  , username , email , password , isLoggedIn : true });
       await HandleModel.create({
         userId : user._id,
         codeforcesHandle : null,
@@ -33,7 +33,7 @@ passport.use('login', new localStrategy({
 }, async (username, password, done) => {
   try {
     //Find the user associated with the username provided by the user
-    const user = await UserModel.findOne({ username });
+    var user = await UserModel.findOne({ username });
     if( !user ){
       //If the user isn't found in the database, return a message
       return done(null, false, { message : 'User not found'});
@@ -44,6 +44,11 @@ passport.use('login', new localStrategy({
     if( !validate ){
       return done(null, false, { message : 'Wrong Password'});
     }
+
+    if(user.isLoggedIn != true) {
+      await UserModel.updateOne({ _id : user._id} , { isLoggedIn : true });
+    }
+    user.isLoggedIn = true;
     //Send the user information to the next middleware
     return done(null, user, { message : 'Logged in Successfully'});
   } catch (error) {
