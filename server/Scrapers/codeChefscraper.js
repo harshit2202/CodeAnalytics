@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer'); // Headless Browser
 
 
 let timeStart;
-
+let user="yash_code_guy";
 async function codeChefscraper(user){ 
 	let url = 'https://www.codechef.com/users/' + user;
 	let browser = await puppeteer.launch({headless:true});
@@ -106,4 +106,5 @@ function fetchtime(){
 	return (((new Date).getTime() - timeStart)/1000) + " seconds";
 }
 
-export default codeChefscraper;
+codeChefscraper();
+// export default codeChefscraper;
