@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Dash from './components/Dash';
 import Handles from './components/Handles';
+import Problempage from './components/Problempage';
 class App extends Component {
   render() {
     return (
@@ -20,8 +21,9 @@ class App extends Component {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/dash" component={Dash} />
           <Route path="/handles" component={Handles} />
+          <Route path="/problempage/:id" component={Problempage} />
         </Switch>
-        </BrowserRouter>
+      </BrowserRouter>
       </div>
     );
   }

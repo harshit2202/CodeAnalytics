@@ -4,10 +4,10 @@ const cheerio = require("cheerio"); //to parse the scraped data
 const puppeteer = require('puppeteer'); // Headless Browser
 
 
-
+let user="yash_code_guy";
 let timeStart;
 
-async function codeChefscraper(user){ 
+async function codeChefscraper(){ 
 	let url = 'https://www.codechef.com/users/' + user;
 	let browser = await puppeteer.launch({headless:true});
  	let page = await browser.newPage();
@@ -106,4 +106,4 @@ function fetchtime(){
 	return (((new Date).getTime() - timeStart)/1000) + " seconds";
 }
 
-export default codeChefscraper;
+codeChefscraper();

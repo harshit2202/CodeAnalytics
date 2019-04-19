@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 class Handles extends Component {
-
+  
   setRedirect(){
     this.setState({
       redirect: true
@@ -18,6 +18,7 @@ class Handles extends Component {
   
   renderRedirect = () => {
     if (this.state.redirect) {
+      console.log(this.state);
       return <Redirect to={
         {
           pathname : '/dashboard',
@@ -25,7 +26,9 @@ class Handles extends Component {
               codechefhandle : this.state.codechefhandle , 
               codeforceshandle : this.state.codeforceshandle ,
               hackerearthhandle : this.state.hackerearthhandle,
-              email : "ef",
+              username : this.state.username ,
+              email : this.state.email ,
+              name : this.state.name ,
           }
         }
       } />
@@ -73,6 +76,9 @@ class Handles extends Component {
       codechefhandle:'',
       codeforceshandle:'',
       hackerearthhandle:'',
+      username : this.props.location.state.username ,
+      email : this.props.location.state.email ,
+      name : this.props.location.state.name , 
       redirect : false
     }
   }
@@ -88,7 +94,7 @@ class Handles extends Component {
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="CodeChef Handle"
-             onChange = {(event,newValue) => this.setState({codechefhandle:newValue})}
+             onChange = {(event,newValue) => {this.setState({codechefhandle:newValue});console.log(newValue);}}
              />
            <br/>
            <TextField

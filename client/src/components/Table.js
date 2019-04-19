@@ -54,7 +54,7 @@ function SimpleTable(props) {
             <TableRow key={row.id}>
               <TableCell align="center">{row.siteprofile}</TableCell>
               <TableCell align="center">{row.time}</TableCell>
-              <TableCell align="center">{row.problem}</TableCell>
+              <TableCell align="center"><a href={`/problempage/${row.problem}`}>{row.problem}</a></TableCell>
               <TableCell align="center">{row.language}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
             </TableRow>

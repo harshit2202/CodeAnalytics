@@ -10,20 +10,24 @@ import { yellow, red } from '@material-ui/core/colors';
 import SimpleTabs from './Tabs.js';
 class Dashboard extends Component {
   
+
   constructor(props) {
     super(props)
   
     this.state = {
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
-       name : this.props.location.state.name
+       name : this.props.location.state.name , 
+       codechefhandle : this.props.location.state.codechefhandle , 
+      codeforceshandle : this.props.location.state.codeforceshandle ,
+      hackerearthhandle : this.props.location.state.hackerearthhandle
     }
   }
   
   
   render() {
       const loc = this.props.location;
-      console.log(this.state.name);
+      console.log(this.state.codechefhandle);
       return (
       <div>
           <MuiThemeProvider>
@@ -45,17 +49,17 @@ class Dashboard extends Component {
                  </td>
                  <td className="handles"> 
                     <div>
-                      <RaisedButton style={{width : "200px"}} href={`https://www.codechef.com/users/${this.state.username}`}>  Codechef Profile  </RaisedButton>
+                      <RaisedButton style={{width : "200px"}} href={`https://www.codechef.com/users/${this.state.codechefhandle}`}>  Codechef Profile  </RaisedButton>
                     </div>
                  </td>
                  <td className="handles"> 
                     <div>
-                    <RaisedButton style={{width : "200px"}} href={`https://codeforces.com/profile/${this.state.username}`}>  Codeforces Profile  </RaisedButton>
+                    <RaisedButton style={{width : "200px"}} href={`https://codeforces.com/profile/${this.state.codeforceshandle}`}>  Codeforces Profile  </RaisedButton>
                     </div>
                  </td>
                  <td className="handles"> 
                     <div>
-                    <RaisedButton style={{width : "200px"}} href={`https://www.hackerearth.com/@${this.state.username}`} >  Hackerearth Profile  </RaisedButton>
+                    <RaisedButton style={{width : "200px"}} href={`https://www.hackerearth.com/@${this.state.hackerearthhandle}`} >  Hackerearth Profile  </RaisedButton>
                     </div>
                  </td>
                </tr>
