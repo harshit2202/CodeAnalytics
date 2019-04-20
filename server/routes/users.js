@@ -13,4 +13,6 @@ router.post('/handles' ,userController.validate, userController.addHandles);
 
 router.get('/logout' ,userController.validate, userController.logout);
 
+router.get('/fetch' ,userController.validate, userController.fetchSubmissions);
+
 module.exports = router;

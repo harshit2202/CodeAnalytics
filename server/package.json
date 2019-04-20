@@ -23,6 +23,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.3",
-    "puppeteer": "^1.14.0"
+    "puppeteer": "^1.14.0",
+    "request-promise": "^4.2.4"
   }
 }
