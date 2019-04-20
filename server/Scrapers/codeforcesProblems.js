@@ -3,9 +3,11 @@ const cheerio = require("cheerio"); //to parse the scraped data
 const beautify  = require("js-beautify"); // beautify
 const puppeteer = require('puppeteer');
 const fs = require("fs-extra"); 
+const ProblemModel = require('../models/ProblemModel');
 var list=[] 
 async function myScraper(url)
 {
+    console.log("Starting to scrape");
       try
       {  
               const browser = await puppeteer.launch({headless:false});
@@ -42,6 +44,8 @@ async function myScraper(url)
                           {
                               var position=j.toString() ;
                               ele = ($('.problems > tbody > tr:nth-child('+position+')'));
+                              xx=($('.problems > tbody > tr:nth-child('+position+') > td:nth-child(2) > div > a'));
+                              link=$(xx).attr('href') ;
                               let arr=[] ;
                               arr=(ele.text().replace(/\s\s+/g,'@').split("@")) ;
                               var tags=[] ;
@@ -49,17 +53,18 @@ async function myScraper(url)
                               {
                                   tags.push(arr[k]) ;
                               }
+
                               list.push
                               (
                                 {
-                                    'id'    : arr[1] ,
                                     'tags'  : tags ,
                                     'name'  : arr[2],
-                                    'solved': arr[arr.length-2]
+                                    'link'  : link
                                 }
                               ) ;
                           }
-                          console.log(list[100*(i-1)]) ;
+                          
+                         
                           await page.waitFor(2000);
                           // await page.$$eval(selector, anchors => 
                           // {
@@ -78,7 +83,11 @@ async function myScraper(url)
         //      fs.writeFile('output1.txt',a_arr, (err) =>{ 
         //           if (err) throw err; 
         //      }) 
-              await browser.close();
+        console.log(list.length);
+        await ProblemModel.insertMany(list , function(error , docs) {
+            if(error)
+                console.log("error");
+        });
       } 
       catch(e) 
       {

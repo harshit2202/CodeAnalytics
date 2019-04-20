@@ -20,8 +20,7 @@ const ProblemSchema = new Schema({
     }],
 
     tags : [ {
-        type : Schema.Types.ObjectId ,
-        ref : 'tags'
+        type : String
     }]
 });
 
