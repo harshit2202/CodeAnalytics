@@ -1,8 +1,8 @@
-const request = require("request-promise"); // request http
+//const request = require("request-promise"); // request http
 const cheerio = require("cheerio"); //to parse the scraped data
-const beautify  = require("js-beautify"); // beautify
+//const beautify  = require("js-beautify"); // beautify
 const puppeteer = require('puppeteer');
-const fs = require("fs-extra"); 
+//const fs = require("fs-extra"); 
 const ProblemModel = require('../models/ProblemModel');
 var list=[] 
 async function myScraper(url)
@@ -46,6 +46,7 @@ async function myScraper(url)
                               ele = ($('.problems > tbody > tr:nth-child('+position+')'));
                               xx=($('.problems > tbody > tr:nth-child('+position+') > td:nth-child(2) > div > a'));
                               link=$(xx).attr('href') ;
+                              link = 'https://codeforces.com' + link;
                               let arr=[] ;
                               arr=(ele.text().replace(/\s\s+/g,'@').split("@")) ;
                               var tags=[] ;

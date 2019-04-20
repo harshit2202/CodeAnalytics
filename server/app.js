@@ -17,7 +17,7 @@ require('./models/HandleModel');
 require('./models/ProblemModel');
 require('./models/SubmissionModel');
 //require('../server/Scrapers/codeforcesProblems');
-require('../server/Scrapers/codechefProblemscraper');
+//require('../server/Scrapers/codechefProblemscraper');
 
 
 //DB Setup

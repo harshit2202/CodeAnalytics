@@ -71,7 +71,7 @@ function fetchData(data,diff){
     tag =  diff;
 	$('.problemname').each((index,row) => {
         link = $(row).children('a').attr('href');
-        link = "https://www.codechef.com/problems";
+        link = "https://www.codechef.com" + link;
         probname = $(row).children('a').children('b').text();  
         // console.log(tag + " "+ link+" "+ probname);
         jsonArr.push({

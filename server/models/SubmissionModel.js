@@ -28,6 +28,10 @@ const SubmissionSchema = new Schema({
     time : {
         type : Date,
         default : Date.now
+    },
+
+    language : {
+        type : String
     }
 });
 
