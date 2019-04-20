@@ -41,17 +41,20 @@ class Handles extends Component {
   }
   handleClick()
   {
-    axios.post('http://172.19.18.45:3000/auth/signup', {
-      username : this.state.username,
-      firstName : this.state.first_name,
-      lastName : this.state.last_name,
-      email : this.state.email,
-      password : this.state.password
+    var that = this;
+    axios.post('http://127.0.0.1:3000/users/handles', {
+      codeforcesHandle : this.state.codeforceshandle,
+      codechefHandle : this.state.codechefhandle,
+      hackerearthHandle : this.state.hackerearthhandle,
+    } , {
+      headers : {
+        'Authorization' : cookies.get('token')
+      }
     })
     .then(function (response) {
 
-      var token = response.data.token;
-      cookies.set('token',token,{ path: '/' });
+      console.log(response.data);
+      that.setRedirect();
       
     })
     .catch(function (error) {
@@ -72,7 +75,9 @@ class Handles extends Component {
   }
   constructor(props){
     super(props);
-    this.state={
+    if (this.props.location.state)
+    {
+      this.state={
       codechefhandle:'',
       codeforceshandle:'',
       hackerearthhandle:'',
@@ -80,7 +85,8 @@ class Handles extends Component {
       email : this.props.location.state.email ,
       name : this.props.location.state.name , 
       redirect : false
-    }
+     }
+  }
   }
   render() {
     return (
@@ -111,7 +117,7 @@ class Handles extends Component {
              />
            <br/>
            
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick2(event)}/>
+           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
       </div>

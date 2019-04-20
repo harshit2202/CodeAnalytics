@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+// import { codeChefscraper } from "../Scrapers/codeChefscraper";
 const styles = theme => ({
   root: {
     width: '100%',
@@ -27,14 +27,16 @@ function createData(siteprofile,time, problem, language, status) {
 
 const rows = [
   createData('Codechef','10:02 PM 01/06/18', 'BINSHFFL' ,'wrong answer', 'C++14'),
-  createData('z', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  // createData('z', 159, 6.0, 24, 4.0),
+  // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  // createData('Eclair', 262, 16.0, 24, 6.0),
+  // createData('Cupcake', 305, 3.7, 67, 4.3),
+  // createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
 function SimpleTable(props) {
+  
+  // codeChefscraper("yash_code_guy");
   const { classes } = props;
 
   return (
@@ -45,8 +47,8 @@ function SimpleTable(props) {
             <TableCell align="center">Site Profile</TableCell>
             <TableCell align="center">Time Of Submission</TableCell>
             <TableCell align="center">Problem </TableCell>
-            <TableCell align="center">Language</TableCell>
             <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Language</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

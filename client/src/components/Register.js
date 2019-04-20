@@ -37,7 +37,9 @@ class Register extends Component {
   }
   handleClick()
   {
-    axios.post('http://172.19.18.45:3000/auth/signup', {
+    console.log("hello");
+    var that = this;
+    axios.post('http://127.0.0.1:3000/auth/signup', {
       username : this.state.username,
       firstName : this.state.first_name,
       lastName : this.state.last_name,
@@ -45,13 +47,14 @@ class Register extends Component {
       password : this.state.password
     })
     .then(function (response) {
-
       var token = response.data.token;
+      console.log(token);
       cookies.set('token',token,{ path: '/' });
-      
+      that.setRedirect();
     })
     .catch(function (error) {
-      if(error.response.code === 409) {
+      console.log(error);
+      if(error.response.status === 409) {
         alert("Username or Email already exists");
         this.setState(
           {
@@ -119,7 +122,7 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick2(event)}/>
+           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
       </div>
