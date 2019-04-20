@@ -1,0 +1,50 @@
+52405024 Apr/06/2019 18:24UTC+5.5 tourist F - Niyaz and Small Degrees GNU C++17 Accepted 732 ms 70500 KB
+52404688 Apr/06/2019 18:22UTC+5.5 tourist F - Niyaz and Small Degrees GNU C++17 Wrong answer on pretest 5 46 ms 3100 KB
+52388780 Apr/06/2019 17:18UTC+5.5 tourist E - Pavel and Triangles GNU C++17 Accepted 108 ms 2400 KB
+52387452 Apr/06/2019 17:14UTC+5.5 tourist D - Frets On Fire GNU C++17 Accepted 218 ms 7800 KB
+52385893 Apr/06/2019 17:10UTC+5.5 tourist C - Ramesses and Corner Inversion GNU C++17 Accepted 124 ms 2000 KB
+52384891 Apr/06/2019 17:08UTC+5.5 tourist B - Alyona and a Narrow Fridge GNU C++17 Accepted 46 ms 0 KB
+52384630 Apr/06/2019 17:06UTC+5.5 tourist A - Ilya and a Colorful Walk GNU C++17 Accepted 93 ms 1200 KB
+50662253 Mar/02/2019 06:14UTC+5.5 tourist D5 - Creeper Q# Accepted 187 ms 0 KB
+50662098 Mar/02/2019 06:02UTC+5.5 tourist D4 - TIE fighter Q# Accepted 529 ms 0 KB
+50661328 Mar/02/2019 05:03UTC+5.5 tourist B1 - Distinguish three-qubit states Q# Accepted 374 ms 3300 KB
+50661279 Mar/02/2019 04:59UTC+5.5 tourist A1 - Generate state |00⟩ + |01⟩ + |10⟩ Q# Accepted 186 ms 0 KB
+50660632 Mar/02/2019 04:13UTC+5.5 tourist D4 - TIE fighter Q# Accepted 545 ms 0 KB
+50660337 Mar/02/2019 03:57UTC+5.5 tourist D3 - X-wing fighter Q# Accepted 514 ms 0 KB
+50659538 Mar/02/2019 03:19UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 5 202 ms 0 KB
+50659517 Mar/02/2019 03:18UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Accepted 343 ms 5500 KB
+50659403 Mar/02/2019 03:13UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 3 218 ms 500 KB
+50659032 Mar/02/2019 02:53UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 3 233 ms 500 KB
+50658974 Mar/02/2019 02:51UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 3 187 ms 0 KB
+50658962 Mar/02/2019 02:51UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Compilation error 0 ms 0 KB
+50658842 Mar/02/2019 02:46UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 3 218 ms 0 KB
+50658801 Mar/02/2019 02:44UTC+5.5 tourist A2 - Generate equal superposition of four basis states Q# Runtime error on test 2 218 ms 0 KB
+50656209 Mar/02/2019 01:11UTC+5.5 tourist D3 - X-wing fighter Q# Wrong answer on test 1 156 ms 0 KB
+50656188 Mar/02/2019 01:10UTC+5.5 tourist D3 - X-wing fighter Q# Runtime error on test 1 124 ms 0 KB
+50656064 Mar/02/2019 01:07UTC+5.5 tourist D3 - X-wing fighter Q# Runtime error on test 1 124 ms 0 KB
+50655881 Mar/02/2019 01:02UTC+5.5 tourist D2 - Pattern of increasing blocks Q# Accepted 607 ms 2200 KB
+50655252 Mar/02/2019 00:46UTC+5.5 tourist A1 - Generate state |00⟩ + |01⟩ + |10⟩ Q# Accepted 124 ms 0 KB
+50654382 Mar/02/2019 00:24UTC+5.5 tourist D3 - X-wing fighter Q# Runtime error on test 1 139 ms 0 KB
+50654362 Mar/02/2019 00:24UTC+5.5 tourist D3 - X-wing fighter Q# Wrong answer on test 1 187 ms 0 KB
+50654139 Mar/02/2019 00:18UTC+5.5 tourist D3 - X-wing fighter Q# Compilation error 0 ms 0 KB
+50654044 Mar/02/2019 00:17UTC+5.5 tourist D3 - X-wing fighter Q# Runtime error on test 1 124 ms 0 KB
+50654035 Mar/02/2019 00:16UTC+5.5 tourist D3 - X-wing fighter Q# Runtime error on test 1 108 ms 0 KB
+50653860 Mar/02/2019 00:13UTC+5.5 tourist D3 - X-wing fighter Q# Wrong answer on test 1 170 ms 0 KB
+50653712 Mar/02/2019 00:10UTC+5.5 tourist D3 - X-wing fighter Q# Wrong answer on test 1 155 ms 0 KB
+50653048 Mar/01/2019 23:54UTC+5.5 tourist D2 - Pattern of increasing blocks Q# Compilation error 0 ms 0 KB
+50652995 Mar/01/2019 23:53UTC+5.5 tourist D2 - Pattern of increasing blocks Q# Wrong answer on test 2 140 ms 0 KB
+50652890 Mar/01/2019 23:50UTC+5.5 tourist D2 - Pattern of increasing blocks Q# Wrong answer on test 2 171 ms 0 KB
+50652851 Mar/01/2019 23:49UTC+5.5 tourist D2 - Pattern of increasing blocks Q# Wrong answer on test 1 140 ms 0 KB
+50652416 Mar/01/2019 23:39UTC+5.5 tourist C3 - "Is the number of ones divisible by 3?" oracle Q# Accepted 2214 ms 98800 KB
+50652363 Mar/01/2019 23:38UTC+5.5 tourist C3 - "Is the number of ones divisible by 3?" oracle Q# Wrong answer on test 1 108 ms 0 KB
+50651913 Mar/01/2019 23:27UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Accepted 2682 ms 50600 KB
+50651902 Mar/01/2019 23:27UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Time limit exceeded on test 6 4000 ms 50700 KB
+50651861 Mar/01/2019 23:26UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Time limit exceeded on test 6 4000 ms 50900 KB
+50651776 Mar/01/2019 23:24UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Accepted 2822 ms 50500 KB
+50651644 Mar/01/2019 23:21UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Time limit exceeded on test 6 4000 ms 6900 KB
+50651559 Mar/01/2019 23:19UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Time limit exceeded on test 6 4000 ms 7300 KB
+50651336 Mar/01/2019 23:14UTC+5.5 tourist C2 - "Is the bit string periodic?" oracle Q# Time limit exceeded on test 6 4000 ms 50700 KB
+50650898 Mar/01/2019 23:03UTC+5.5 tourist C1 - Alternating bits oracle Q# Accepted 576 ms 98900 KB
+50650371 Mar/01/2019 22:52UTC+5.5 tourist D1 - Block diagonal matrix Q# Accepted 592 ms 0 KB
+49588803 Feb/07/2019 20:26UTC+5.5 tourist F - Nearest Leaf GNU C++14 Accepted 1653 ms 51700 KB
+49584456 Feb/07/2019 20:07UTC+5.5 tourist G - Tree-Tac-Toe GNU C++14 Accepted 483 ms 24400 KB

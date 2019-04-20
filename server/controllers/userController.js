@@ -1,6 +1,7 @@
 const UserModel = require('../models/UserModel');
 const HandleModel = require('../models/HandleModel');
 const tokenController =  require('../controllers/tokenController')
+const cfScraper = require('../Scrapers/cfScraper')
 
 exports.dashboard = async function(req , res) {
 
@@ -16,7 +17,7 @@ exports.dashboard = async function(req , res) {
 
 }
 
-exports.getHandles = async function(req,res) {
+async function getHandles (req,res) {
 
     try {
         const handles = await HandleModel.findOne({ userId : req.user});
@@ -36,6 +37,8 @@ exports.getHandles = async function(req,res) {
     }
     
 }
+
+exports.getHandles = getHandles;
 
 exports.addHandles = async function(req,res) {
 
@@ -66,6 +69,30 @@ exports.logout = async function(req,res) {
         return res.json( { error : "Some Error Occured"});
     }
 
+}
+
+exports.fetchSubmissions = async function(req,res) {
+
+    handles = {}
+    try {
+        handles = await HandleModel.findOne({ userId : req.user});
+    }
+    catch(error) {
+        console.log("In here");
+        res.statusCode = 500;
+        return res.json( { error : "Some Error Occured"});
+    }
+    try {
+        let list = []
+        if(handles.codeforcesHandle)
+            list = await cfScraper('https://codeforces.com/submissions/' + handles.codechefHandle);
+        return res.json(list);
+    }catch(error) {
+        console.log(error);
+        console.log("2nd error");
+        res.statusCode = 500;
+        return res.json( { error : "Some Error Occured"});
+    }
 }
 
 exports.validate = async function (req,res,next) {
