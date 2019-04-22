@@ -49,7 +49,7 @@ class Handles extends Component {
     .then(function (response) {
 
       console.log(response.data);
-      that.setRedirect();
+      zz
       
     })
     .catch(function (error) {
