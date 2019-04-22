@@ -29,6 +29,12 @@ const UserSchema = new Schema({
       index : true,
       unique : true,
     },
+
+    submissions: [{
+      type: Schema.Types.ObjectId,
+      ref: 'submissions'
+    }],
+    
     password : {
       type : String,
       required : true

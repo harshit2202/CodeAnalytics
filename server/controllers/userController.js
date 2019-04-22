@@ -3,6 +3,8 @@ const HandleModel = require('../models/HandleModel');
 const tokenController =  require('../controllers/tokenController')
 const cfScraper = require('../Scrapers/cfScraper')
 const ccscraper = require('../Scrapers/codeChefscraper')
+const ProblemModel = require('../models/ProblemModel')
+const SubmissionModel = require('../models/SubmissionModel')
 
 exports.dashboard = async function(req , res) {
 
@@ -84,18 +86,37 @@ exports.fetchSubmissions = async function(req,res) {
         res.statusCode = 500;
         return res.json( { error : "Some Error Occured"});
     }
+    let list = [];
+    let problems = [];
     try {
-        let list = []
-        if(handles.codechefHandle)
-            list = await ccscraper(handles.codechefHandle);
-        console.log(list);
-        return res.json(list);
+        if(handles.codeforcesHandle)
+            list = await cfScraper(handles.codeforcesHandle);
+
+        // if(handles.codechefHandle)
+        //     list.push(await ccscraper(handles.codechefHandle));
+        
+        for(i=0;i<list.length;i++) {
+
+            let problem = await ProblemModel.findOne({link : list[i].problem});
+            list[i].problem = problem._id;
+            list[i].user = req.user._id;
+            let submission = await SubmissionModel.create(list[i]);
+            problem.submissions.push(submission._id);
+            problem.save();
+            await UserModel.update({ _id : req.user._id},{ $push: { submissions : submission._id } });
+        }
+        
+        return res.json({ message : "success"});
     }catch(error) {
+        console.log(error.code);
+        if(error.code == 11000)
+            return res.json({ message : "success"});
         console.log(error);
         console.log("2nd error");
         res.statusCode = 500;
         return res.json( { error : "Some Error Occured"});
     }
+
 }
 
 exports.validate = async function (req,res,next) {

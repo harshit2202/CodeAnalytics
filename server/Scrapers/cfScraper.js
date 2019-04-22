@@ -56,19 +56,25 @@ async function myScraper(userName)
                    myList=(ele.text().replace(/\s\s+/g,'@').split("@")) ;
                    link = $('.status-frame-datatable > tbody > tr:nth-child('+position+') > td > a').attr('href');
                    link = 'https://codeforces.com' + link ;
+
+                   ff =  $('.status-frame-datatable > tbody > tr:nth-child('+position+') > td:nth-child(4) > a').attr('href');
+                   arr = ff.split('/');
+                   plink = 'https://codeforces.com/problemset/problem/' + arr[2] + '/' + arr[4];
                    list.push({
                               link : link,
                               time : myList[2],
                               user : myList[3],
-                              problem : myList[4],
+                              problem : plink,
                               language : myList[5],
                               verdict : myList[6]
                             });
               }
               await page.waitFor(2000);
               i++ ;
+              break;
         }   
         console.log('Done !') ;
+        console.log(list);
         await browser.close();
         console.log(list.length);
         return list;
@@ -78,5 +84,7 @@ async function myScraper(userName)
         console.log(e) ;
       }                                         
 }
-myScraper('tourist') ;
+//myScraper('tourist') ;
+
+
 module.exports = myScraper;
