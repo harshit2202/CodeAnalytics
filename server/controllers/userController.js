@@ -2,6 +2,7 @@ const UserModel = require('../models/UserModel');
 const HandleModel = require('../models/HandleModel');
 const tokenController =  require('../controllers/tokenController')
 const cfScraper = require('../Scrapers/cfScraper')
+const ccscraper = require('../Scrapers/codeChefscraper')
 
 exports.dashboard = async function(req , res) {
 
@@ -73,6 +74,7 @@ exports.logout = async function(req,res) {
 
 exports.fetchSubmissions = async function(req,res) {
 
+    console.log("in fetch submissions")
     handles = {}
     try {
         handles = await HandleModel.findOne({ userId : req.user});
@@ -84,8 +86,9 @@ exports.fetchSubmissions = async function(req,res) {
     }
     try {
         let list = []
-        if(handles.codeforcesHandle)
-            list = await cfScraper('https://codeforces.com/submissions/' + handles.codechefHandle);
+        if(handles.codechefHandle)
+            list = await ccscraper(handles.codechefHandle);
+        console.log(list);
         return res.json(list);
     }catch(error) {
         console.log(error);
@@ -98,7 +101,7 @@ exports.fetchSubmissions = async function(req,res) {
 exports.validate = async function (req,res,next) {
 
     const user = await UserModel.findOne({_id : req.user});
-
+    console.log("Validate");
     if(user.isLoggedIn == false) {
         res.statusCode = 401;
         return res.json({error : "Unauthorized"});

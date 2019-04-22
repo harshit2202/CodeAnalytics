@@ -30,11 +30,6 @@ class Register extends Component {
       } />
     }
   }
-  handleClick2()
-  {
-    this.setRedirect(); 
-    
-  }
   handleClick()
   {
     console.log("hello");

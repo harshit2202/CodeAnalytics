@@ -34,11 +34,6 @@ class Handles extends Component {
       } />
     }
   }
-  handleClick2()
-  {
-    this.setRedirect(); 
-    
-  }
   handleClick()
   {
     var that = this;

@@ -10,7 +10,7 @@ let subarr = [];
 export async function codeChefscraper(user){ 
 	let url = 'https://www.codechef.com/users/' + user;
 	console.log(url);
-	let browser = await puppeteer.launch({headless:false});
+	let browser = await puppeteer.launch({headless:true});
  	let page = await browser.newPage();
  	
  	timeStart = (new Date()).getTime();

@@ -47,7 +47,7 @@ class SimpleTabs2 extends React.Component {
             <Tab label="Global Recent Submissions" />            
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer> <SimpleTable /> </TabContainer>}
+        {value === 0 && <TabContainer> hello</TabContainer>}
         {value === 1 && <TabContainer>Global Recent Submissions</TabContainer>}
         
         

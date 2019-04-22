@@ -6,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import SimpleTable from './Table.js';
+import Tableclass from './Tableclass.js';
+import Statistics from './Statistics.js';
 
 function TabContainer(props) {
   return (
@@ -30,7 +32,13 @@ class SimpleTabs extends React.Component {
   state = {
     value: 0,
   };
-
+  constructor(props) {
+    super(props)
+    console.log("From TABS PAGE ");
+    console.log(props);
+    
+  }
+  
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -51,8 +59,8 @@ class SimpleTabs extends React.Component {
             
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer> <SimpleTable /> </TabContainer>}
-        {value === 1 && <TabContainer>Statistics</TabContainer>}
+        {value === 0 && <TabContainer> <Tableclass subdata={this.props.subdata}/> </TabContainer>}
+        {value === 1 && <TabContainer><Statistics subdata={this.props.subdata}/></TabContainer>}
         {value === 2 && <TabContainer>HeatMap</TabContainer>}
         {value === 3 && <TabContainer>Ratings</TabContainer>}
         {value === 4 && <TabContainer>Upcoming Contests</TabContainer>}

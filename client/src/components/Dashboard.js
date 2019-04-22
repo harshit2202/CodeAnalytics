@@ -8,13 +8,17 @@ import Typography from '@material-ui/core/Typography';
 import Grid from './Grid';
 import { yellow, red } from '@material-ui/core/colors';
 import SimpleTabs from './Tabs.js';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class Dashboard extends Component {
   
 
   constructor(props) {
     super(props)
-  
+    
     this.state = {
+      submissions : [] ,
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
        name : this.props.location.state.name , 
@@ -24,7 +28,28 @@ class Dashboard extends Component {
     }
   }
   
-  
+  componentDidMount()
+  {
+      var that=this;
+      axios.get('http://127.0.0.1:3000/users/fetch',{
+          headers : {
+          'Authorization' : cookies.get('token')
+          }
+      })
+      .then(function (response) {
+      console.log("hello");
+      console.log(response);
+      that.setState({
+          submissions : response.data
+      });
+      
+      })
+      .catch(function (error) {
+      console.log('error')
+      console.log(error);
+      });
+      console.log("Component DID mount");
+  }    
   render() {
       const loc = this.props.location;
       console.log(this.state.codechefhandle);
@@ -66,7 +91,7 @@ class Dashboard extends Component {
              </tbody>
            </table>
            </div> 
-            <SimpleTabs />
+            <SimpleTabs subdata={this.state.submissions}/>
            </div>
          </MuiThemeProvider>
       </div>

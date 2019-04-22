@@ -3,14 +3,16 @@ const cheerio = require("cheerio"); //to parse the scraped data
 // const fs = require("fs-extra"); //file read write
 const puppeteer = require('puppeteer'); // Headless Browser
 
-
-// let user="yash_code_guy";
-let timeStart;
 let subarr = [];
+
+let timeStart;
 async function codeChefscraper(user){ 
+
+	subarr = []
 	let url = 'https://www.codechef.com/users/' + user;
 	console.log(url);
 	let browser = await puppeteer.launch({headless:false});
+	// console.log("here");
  	let page = await browser.newPage();
  	
  	timeStart = (new Date()).getTime();
@@ -31,10 +33,6 @@ async function codeChefscraper(user){
  	console.log("DONE");
  	 	let totalpages = fetchNumberOfPages(data);
 	
-
-
-
-
 	for(let i=0;i<totalpages;i++){
 
 	 	if(i != totalpages-1){
@@ -52,7 +50,7 @@ async function codeChefscraper(user){
 
  	 	
 	let jsonArr = [];
- 	console.log(subarr.length);
+ 	// console.log(subarr.length);
 	for(let i=0;i<subarr.length;i+=4){
 		jsonArr.push({
 			dateTime : subarr[i],
@@ -60,9 +58,10 @@ async function codeChefscraper(user){
 			submissionStatus:subarr[i+2],
 			languageUsed: subarr[i+3]
 		})
-		console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
+		// console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 		// fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
 	}
+	console.log(jsonArr);
 	return jsonArr;
 
 };
@@ -107,6 +106,5 @@ function fetchtime(){
 	return (((new Date).getTime() - timeStart)/1000) + " seconds";
 }
 
-// codeChefscraper('yash_code_guy');
-
-export default codeChefscraper;
+// codeChefscraper('prathyushacse');
+module.exports = codeChefscraper;
