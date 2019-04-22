@@ -21,13 +21,11 @@ const SubmissionSchema = new Schema({
     },
 
     verdict : {
-        type : String , 
-        enum : verdicts
+        type : String
     },
 
     time : {
-        type : Date,
-        default : Date.now
+        type : String
     },
 
     language : {
