@@ -8,13 +8,13 @@ const puppeteer = require('puppeteer'); // Headless Browser
 let timeStart;
 async function usertester(user){
     let url = 'https://www.codechef.com/users/' + user; 
-    let browser = await puppeteer.launch({headless:true});
+    let browser = await puppeteer.launch({headless:false});
  	let page = await browser.newPage();
  	console.log("Started Browser");
  	timeStart = (new Date()).getTime();
  	
  	await page.goto(url,{waituntil : 'domcontentloaded',
-    	timeout:300000,
+    	timeout:3000,
  						headless:true});
 
 
@@ -25,24 +25,19 @@ async function usertester(user){
  	data = await page.content();
  	console.log("Time to get content "+ fetchtime());
 
- 	let result = fetchData(data);
- 	console.log("DONE");	
+ 	let rating = fetchData(data);
+ 	console.log(rating);	
     console.log("Total time "+ fetchtime());
     await browser.close();
-    console.log(result);
-    if(result)
-        return true;
-    else
-        return false; 	
+    return rating;
 };
 usertester("yash_code_guy");
 //function to fetch data form the acquired html
 function fetchData(data){
  const $ = cheerio.load(data); 
-    if($('.err-message').text()=="Could not find page you requested for.")
-        return false;
-    else 
-        return true;    
+    let rating = $('.rating-number').text();
+    return rating;
+
 }
 
 function fetchtime(){

@@ -53,7 +53,7 @@ class Register extends Component {
         alert("Username or Email already exists");
         this.setState(
           {
-            username : "" ,
+            username : z"" ,
             email : ""
           }
         )
