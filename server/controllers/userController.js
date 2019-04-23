@@ -64,7 +64,7 @@ exports.addHandles = async function(req,res) {
 
 exports.logout = async function(req,res) {
     try {
-        await UserModel.updateOne( { _id : req.user._id } , { isLoggedIn : false });
+        await UserModel.updateOne( { _id : req.user } , { isLoggedIn : false });
         return res.json({message : "success"});
     }
     catch(error) {
@@ -78,32 +78,36 @@ exports.fetchSubmissions = async function(req,res) {
 
     console.log("in fetch submissions")
     handles = {}
-    try {
-        handles = await HandleModel.findOne({ userId : req.user});
-    }
-    catch(error) {
-        console.log("In here");
-        res.statusCode = 500;
-        return res.json( { error : "Some Error Occured"});
-    }
     let list = [];
-    let problems = [];
+    let list1 = []
     try {
+
+        handles = await HandleModel.findOne({ userId : req.user});
+
         if(handles.codeforcesHandle)
             list = await cfScraper(handles.codeforcesHandle);
 
         // if(handles.codechefHandle)
-        //     list.push(await ccscraper(handles.codechefHandle));
+        //     list1 = await ccscraper(handles.codechefHandle);
         
         for(i=0;i<list.length;i++) {
 
             let problem = await ProblemModel.findOne({link : list[i].problem});
             list[i].problem = problem._id;
             list[i].user = req.user._id;
-            let submission = await SubmissionModel.create(list[i]);
-            problem.submissions.push(submission._id);
-            problem.save();
-            await UserModel.update({ _id : req.user._id},{ $push: { submissions : submission._id } });
+            try { 
+                let submission = await SubmissionModel.create(list[i]);
+                problem.submissions.push(submission._id);
+                problem.save();
+                await UserModel.update({ _id : req.user._id},{ $push: { submissions : submission._id } });
+            }catch(error) {
+                if(error.code == 11000) {
+                    i = -1;
+                    list = list1;
+                }
+                else
+                    res.status(500).json( { error : "Some Error Occured"});
+            }
         }
         
         return res.json({ message : "success"});
@@ -119,6 +123,23 @@ exports.fetchSubmissions = async function(req,res) {
 
 }
 
+exports.getSubmissions = async function(req,res) {
+
+        console.log(req.params.userId);
+        UserModel.findOne( {username : req.params.userId })
+        .populate('submissions' , '-user')
+        .exec((err,user) => {
+            if(err)
+                res.status(500).json( { error : "Some Error Occured"});
+
+            UserModel.populate(user , { path : 'submissions.problem' , model : 'problems' , select : ['name','link'] } ,
+                (err , user) => {
+                    if(err)
+                        res.status(500).json( { error : "Some Error Occured"});
+                    res.status(200).json({ submissions : user.submissions});
+                })
+        });
+}
 exports.validate = async function (req,res,next) {
 
     const user = await UserModel.findOne({_id : req.user});
@@ -127,6 +148,5 @@ exports.validate = async function (req,res,next) {
         res.statusCode = 401;
         return res.json({error : "Unauthorized"});
     }
-    req.user = user;
     next();
 }
