@@ -1,6 +1,6 @@
-const request = require("request-promise"); // request http
+//const request = require("request-promise"); // request http
 const cheerio = require("cheerio"); //to parse the scraped data
-const beautify  = require("js-beautify"); // beautify
+//const beautify  = require("js-beautify"); // beautify
 const puppeteer = require('puppeteer');
 const fs = require("fs-extra"); 
 var list=[] 
@@ -117,4 +117,4 @@ async function myScraper(userName)
             console.log(e) ;
       }                                         
 }
-myScraper('mridul1809');
+// myScraper('mridul1809');
