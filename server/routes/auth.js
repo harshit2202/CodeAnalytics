@@ -34,7 +34,7 @@ router.post('/login', async (req, res, next) => {
           return next(err);
 
         else {
-          req.user = user;
+          req.user = user._id;
           return await userController.dashboard(req,res);
         }
     })(req, res, next);

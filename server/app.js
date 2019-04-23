@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const userController = require('../server/controllers/userController');
+const problemController = require('../server/controllers/problemController');
 
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -48,6 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
 app.use('/users', passport.authenticate('jwt', { session : false }) , usersRouter);
+app.use('/submissions/:userId' ,userController.getSubmissions);
+app.use('/problem' ,problemController.getProblem);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

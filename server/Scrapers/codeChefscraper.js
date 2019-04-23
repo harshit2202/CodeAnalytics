@@ -2,7 +2,7 @@
 const cheerio = require("cheerio"); //to parse the scraped data
 //const beautify  = require("js-beautify"); // beautify
 const puppeteer = require('puppeteer');
-const fs = require("fs-extra"); 
+//const fs = require("fs-extra"); 
 var list=[] 
 var submission=[]
 async function myScraper(userName)
@@ -23,7 +23,7 @@ async function myScraper(userName)
               n = arr[2] ;
               var mp = new Map()
               var list=[]
-              for(i=0 ; i<n ;i++)
+              for(i=0 ; i<1 ;i++)
               {
             	    html= await page.evaluate(() => document.body.innerHTML) ;
               	 	$ = cheerio.load(html);
@@ -88,7 +88,8 @@ async function myScraper(userName)
               	 		 	 	ele = ($('.dataTable > tbody > tr:nth-child('+ j +') > td:nth-child('+ k +')')).text() ;
               	 		 	 	arr.push(ele) ;
               	 		 	 }
-              	 		 }
+							}
+							console.log(arr);
               	 		 verdict = ($('.dataTable > tbody > tr:nth-child('+ j +') > td:nth-child(4) > span').attr('title')) ;
               	 		 if(verdict=='') // challenge problem
               	 		 verdict = 'accepted' ;
@@ -99,10 +100,9 @@ async function myScraper(userName)
               	 		 	{
               	 		 		link : link ,
               	 		 		date : arr[1],
-              	 		 		time : arr[2],
-              	 		 		memory : arr[3],
               	 		 		language : arr[4],
-              	 		 		verdict : verdict 
+								verdict : verdict,
+								problem : 'https://www.codechef.com/problems/'+list[i][1]
               	 		 	}
               	 		 );
               	 		 console.log(submission) ;
@@ -117,4 +117,5 @@ async function myScraper(userName)
             console.log(e) ;
       }                                         
 }
-// myScraper('mridul1809');
+//myScraper('mridul1809');
+module.exports = myScraper;
