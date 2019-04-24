@@ -53,7 +53,8 @@ async function myScraper(url)
               map.set('number theory','number theory')
               map.set('number-theory','number theory') ;
               map.set('shortest path','graphs') ;
-              let tags = [] ;
+              let tags = [];
+              var name ;
               if(site == 'codechef')
               {
               			  ele =($('#content-regions > section > div > aside > p:nth-last-child(5) > span '));
@@ -67,6 +68,10 @@ async function myScraper(url)
                                   tags.push(map.get(temp_tags[k]))  ;                                
                               }
                           }   
+
+                          ele = $('#ember251 > main > div > aside').text().replace(/\s\s+/g,'@').split("@");
+                          temp = ele[1].split('»')  ;
+                          name = temp[2] ;
               }
               else 
               {
@@ -82,17 +87,27 @@ async function myScraper(url)
               				if(map.has(tag))
               				tags.push(map.get(tag)) ;
               			}
+
+              			ele = $('.ttypography > .problem-statement > div:nth-child(1) > div:nth-child(1)').text().split('.') ;
+              			name = ele[1].trim() ;
               }
               await browser.close() ;
 
               if(tags.length == 0)
               tags.push('miscellaneous') ;
-              console.log(tags);
-              return tags ;
+              //console.log(tags);
+              var Json = {
+              	name : name,
+              	tags : tags 
+              }
+              console.log(Json) ;
+              return Json ;
       }
       catch(err)
       {
       	console.log(err)
       }
 }
-myScraper('https://codeforces.com/problemset/problem/1146/G');
+
+myScraper('https://www.codechef.com/problems/BSTOPS');
+//myScraper('https://codeforces.com/problemset/problem/1146/G');
