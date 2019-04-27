@@ -37,9 +37,14 @@ async function myScraper(userName,lastLink)
         var ele = ($('.pagination > ul > li:nth-last-child(2) > span'));
         //console.log($(ele).attr('pageindex')) ;  
         var n=parseInt($(ele).attr('pageindex')) ;
+        
+
+        if(isNaN(n))
+          n = 1;
+
         console.log(n) ;
         i=1 ;           
-        while(i<n)
+        while(i<=n)
         {  
               await page.goto(url+"/page/"+i);
               //console.log(i) ;
@@ -80,7 +85,7 @@ async function myScraper(userName,lastLink)
 
               if(flag == 1)
                 break;
-              break;
+              //break;
         }   
         console.log('Done !') ;
         // console.log(list);

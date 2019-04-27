@@ -6,19 +6,43 @@ const ccscraper = require('../Scrapers/codeChefscraper')
 const ProblemModel = require('../models/ProblemModel')
 const SubmissionModel = require('../models/SubmissionModel')
 const NewProblemScraper = require('../Scrapers/newProblemScraper')
+const utility = require('../controllers/userUtility')
 
 exports.dashboard = async function(req , res) {
 
-    const user = await UserModel.findOne( { _id : req.user } , ['-email','-password','-isLoggedIn','-__v']);
-    var ret = { data : { user }};
+    await UserModel.findOne( {_id : req.user } , ['-password','-isLoggedIn','-__v'])
+        .populate('submissions' , '-user')
+        .exec((err,user) => {
+            if(err)
+                res.status(500).json( { error : "Some Error Occured"});
+                
+            UserModel.populate(user , { path : 'submissions.problem' , model : 'problems' , select : ['name','link','tags'] } ,
+                async (err , user) => {
+                    if(err)
+                        res.status(500).json( { error : "Some Error Occured"});
+                    
+                    //heat_graph = utility.generate_heat_graph(user.submissions);
+                    verdict_pie = await utility.generate_verdict_pie(user.submissions);
+                    solved = await utility.generate_solved(user.submissions);
+                    unsolved = await utility.generate_unsolved(user.submissions,solved);
+                    tags_pie = await utility.generate_tags_pie(solved);
 
-    ret.token = tokenController.getToken(user._id);
+                    var data = { user }
 
-    return res.json(ret);
+                    data.solved = solved;
+                    data.unsolved = unsolved;
+                    data.tags_pie = tags_pie;
+                    data.verdict_pie = verdict_pie;
 
+                    console.log(user.submissions.length);
+
+                    data.token = tokenController.getToken(user._id);
+                    res.status(200).json( { data });
+                });
+        });
 }
 
-async function getHandles (req,res) {
+exports.getHandles = async function (req,res) {
 
     try {
         const handles = await HandleModel.findOne({ userId : req.user});
@@ -38,8 +62,6 @@ async function getHandles (req,res) {
     }
     
 }
-
-exports.getHandles = getHandles;
 
 exports.addHandles = async function(req,res) {
 
@@ -85,14 +107,26 @@ exports.fetchSubmissions = async function(req,res) {
         if(handles.codeforcesHandle)
             list = await cfScraper(handles.codeforcesHandle , handles.lastCf);
 
-        // if(handles.codechefHandle)
-        //     list1 = await ccscraper(handles.codechefHandle);
+        if(handles.codechefHandle)
+             list1 = await cCscraper(handles.codechefHandle , handles.lastCc);
+
+        for(let i=0;i<list1.length;i++)
+            list.push(list1[i]);
+
+
+        console.log('list: ', list);
+
         if(list.length > 0)
-            handles.lastCf = list[0].problem;
+            handles.lastCf = list[0].link;
+        
+        if(list1.length > 0)
+            handles.lastCc = list1[0].link;
 
         await handles.save();
+
+
         
-        for(let i=0;i<10;i++) {
+        for(let i=0; i<list.length; i++) {
             problem = await ProblemModel.findOne({link : list[i].problem});
 
             if(problem == null) {
@@ -126,28 +160,22 @@ exports.fetchSubmissions = async function(req,res) {
 
 }
 
-exports.getSubmissions = async function(req,res) {
-
-        console.log(req.params.userId);
-        UserModel.findOne( {username : req.params.userId })
-        .populate('submissions' , '-user')
-        .exec((err,user) => {
-            if(err)
-                res.status(500).json( { error : "Some Error Occured"});
-
-            UserModel.populate(user , { path : 'submissions.problem' , model : 'problems' , select : ['name','link'] } ,
-                (err , user) => {
-                    if(err)
-                        res.status(500).json( { error : "Some Error Occured"});
-                    res.status(200).json({ submissions : user.submissions});
-                })
-        });
-}
-
 exports.displayUser = async function(req,res) {
 
-    const user = await UserModel.findOne( { username : req.params.username} , ['-_id','-email','-password','-isLoggedIn','-__v']);
-    return res.json( { user });
+    UserModel.findOne( { username : req.params.username} , ['-_id','-email','-password','-isLoggedIn','-__v'])
+    .populate('submissions' , '-user')
+    .exec((err,user) => {
+        if(err)
+            res.status(500).json( { error : "Some Error Occured"});
+
+        UserModel.populate(user , { path : 'submissions.problem' , model : 'problems' , select : ['name','link','tags'] } ,
+            (err , user) => {
+                if(err)
+                    res.status(500).json( { error : "Some Error Occured"});
+                
+                res.status(200).json( { user });
+            });
+    });
 }
 exports.validate = async function (req,res,next) {
 
