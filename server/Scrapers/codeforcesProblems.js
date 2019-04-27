@@ -30,7 +30,42 @@ async function myScraper(url)
               var ele = ($('.pagination > ul > li:nth-last-child(2) > span')); 
               var n=parseInt($(ele).attr('pageindex')) ;
               //console.log(n) ; 
-              i=1;           
+              i=1;        
+              var map = new Map() ;
+              map.set('graphs','graphs');
+              map.set('graph','graphs');
+              map.set('dfs','graphs');
+              map.set('bfs','graphs');
+              map.set('maths','math');
+              map.set('geometry','math');
+              map.set('simple-math','math');
+              map.set('math','math');
+              map.set('gcd','math');
+              map.set('probability','math') ;
+              map.set('probabilities','math');
+              map.set('combinatorics','math');
+              map.set('string','strings');
+              map.set('strings','strings');
+              map.set('data structures','data structures');
+              map.set('data-structure','data structures');
+              map.set('array','data structures');
+              map.set('segment-tree','trees') ;
+              map.set('tree','trees') ;
+              map.set('dp','dp'); 
+              map.set('dynamic-programming','dp');
+              map.set('ad-hoc','brute force');
+              map.set('brute force','brute force');
+              map.set('binary search','binary search')
+              map.set('binary-search','binary search');
+              map.set('hashing','hashing');
+              map.set('implementation','implementation') ;
+              map.set('greedy','greedy') ;
+              map.set('dfs and similar','graphs') ;
+              map.set('dsu','dsu') ;
+              map.set('disjoint-set','dsu');
+              map.set('number theory','number theory')
+              map.set('number-theory','number theory') ;
+              map.set('shortest path','graphs') ;   
               while(i<=n)
               {  
                         
@@ -52,9 +87,13 @@ async function myScraper(url)
                               var tags=[] ;
                               for(k=3 ; k<arr.length-2 ; k++)
                               {
-                                  tags.push(arr[k]) ;
+                                if(map.has(arr[k])) 
+                                {
+                                    tags.push(map.get(arr[k]))  ;                                
+                                }
                               }
-
+                              if(tags.length == 0)
+                              tags.push('miscellaneous') ;
                               list.push
                               (
                                 {
@@ -77,6 +116,7 @@ async function myScraper(url)
                           //    })
                           // });
                           i++ ;
+                          //break ;
               }   
                 console.log('Done !') ;
                 await browser.close();

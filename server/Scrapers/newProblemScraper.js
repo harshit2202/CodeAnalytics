@@ -34,7 +34,7 @@ async function myScraper(url)
               map.set('combinatorics','math');
               map.set('string','strings');
               map.set('strings','strings');
-              map.set('data structure','data structures');
+              map.set('data structures','data structures');
               map.set('data-structure','data structures');
               map.set('array','data structures');
               map.set('segment-tree','trees') ;
@@ -42,6 +42,7 @@ async function myScraper(url)
               map.set('dp','dp'); 
               map.set('dynamic-programming','dp');
               map.set('ad-hoc','brute force');
+              map.set('brute force','brute force');
               map.set('binary search','binary search')
               map.set('binary-search','binary search');
               map.set('hashing','hashing');
