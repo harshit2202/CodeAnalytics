@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 //const fs = require("fs-extra"); 
 const ProblemModel = require('../models/ProblemModel');
 var list=[] 
-async function myScraper(userName)
+async function myScraper(userName,lastLink)
 {
       url = 'https://codeforces.com/submissions/' + userName ;
       console.log("Scraping");
@@ -30,7 +30,7 @@ async function myScraper(userName)
         let inact_selector = '.inactive';
         list=[]
         i=0; 
-        
+        flag = 0;
         await page.waitFor(4000);
         html = await page.content();
         var $ = cheerio.load(html);
@@ -60,6 +60,12 @@ async function myScraper(userName)
                    ff =  $('.status-frame-datatable > tbody > tr:nth-child('+position+') > td:nth-child(4) > a').attr('href');
                    arr = ff.split('/');
                    plink = 'https://codeforces.com/problemset/problem/' + arr[2] + '/' + arr[4];
+                   
+                  if(plink == lastLink) 
+                  {
+                      flag = 1;
+                      break;
+                  }
                    list.push({
                               link : link,
                               time : myList[2],
@@ -71,10 +77,13 @@ async function myScraper(userName)
               }
               await page.waitFor(2000);
               i++ ;
+
+              if(flag == 1)
+                break;
               break;
         }   
         console.log('Done !') ;
-        console.log(list);
+        // console.log(list);
         await browser.close();
         console.log(list.length);
         return list;

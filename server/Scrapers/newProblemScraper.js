@@ -109,5 +109,7 @@ async function myScraper(url)
       }
 }
 
-myScraper('https://www.codechef.com/problems/BSTOPS');
-//myScraper('https://codeforces.com/problemset/problem/1146/G');
+// myScraper('https://www.codechef.com/problems/BSTOPS');
+// myScraper('https://codeforces.com/problemset/problem/1146/G');
+
+module.exports = myScraper;

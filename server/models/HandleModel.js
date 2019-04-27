@@ -19,6 +19,14 @@ const HandleSchema = new Schema( {
     hackerearthHandle : {
         type : String,
         required : false,
+    },
+
+    lastCf : {
+        type : String
+    },
+  
+    lastCc : {
+        type : String
     }
 });
 

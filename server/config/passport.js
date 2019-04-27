@@ -19,7 +19,9 @@ passport.use('signup', new localStrategy({
         userId : user._id,
         codeforcesHandle : null,
         codechefHandle : null,
-        hackerearthHandle : null
+        hackerearthHandle : null,
+        lastCf : null,
+        lastCc : null
       });
       //Send the user information to the next middleware
       return done(null, user);
