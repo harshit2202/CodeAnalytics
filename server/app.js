@@ -49,8 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
-app.use('/users', passport.authenticate('jwt', { session : false }) , usersRouter);
-app.use('/submissions/:userId' ,userController.getSubmissions);
+app.use('/users', usersRouter);
 app.use('/problem' ,problemController.getProblem);
 
 // catch 404 and forward to error handler

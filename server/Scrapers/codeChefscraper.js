@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 //const fs = require("fs-extra"); 
 var list=[] 
 var submission=[]
-async function myScraper(userName)
+async function myScraper(userName,lastLink)
 {
       try																				
       {  
@@ -20,7 +20,8 @@ async function myScraper(userName)
               $ = cheerio.load(html);
               ele = ($('.problems > tbody > tr > td:nth-child(2) > div > div ').text()).toString() ;
               arr= ele.split(' ') ;
-              n = arr[2] ;
+			  n = arr[2] ;
+			  flag = 0;
               var mp = new Map()
               var list=[]
               for(i=0 ; i<1 ;i++)
@@ -94,7 +95,14 @@ async function myScraper(userName)
               	 		 if(verdict=='') // challenge problem
               	 		 verdict = 'accepted' ;
 
-              	 		 link = 'https://www.codechef.com/viewsolution/' + arr[0] ;
+							link = 'https://www.codechef.com/viewsolution/' + arr[0] ;
+							
+							if(link == lastLink) 
+							{
+								flag = 1;
+								break;
+							}
+
               	 		 submission.push
               	 		 (
               	 		 	{
@@ -106,7 +114,9 @@ async function myScraper(userName)
               	 		 	}
               	 		 );
               	 		 console.log(submission) ;
-              	 	}
+					   }
+					   if(flag == 1)
+                			break;
               		 
               } 
               await browser.close();
