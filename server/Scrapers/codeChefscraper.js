@@ -1,110 +1,131 @@
-"use-strict"
+//const request = require("request-promise"); // request http
 const cheerio = require("cheerio"); //to parse the scraped data
-// const fs = require("fs-extra"); //file read write
-const puppeteer = require('puppeteer'); // Headless Browser
+//const beautify  = require("js-beautify"); // beautify
+const puppeteer = require('puppeteer');
+//const fs = require("fs-extra"); 
+var list=[] 
+var submission=[]
+async function myScraper(userName,lastLink)
+{
+      try																				
+      {  
+              const browser = await puppeteer.launch({headless:false});
+              const page = await browser.newPage();
+              var url = 'https://www.codechef.com/users/' + userName ;
+              await page.goto(url);
+              await page.waitFor(4000);
+              var ele,$ ,arr,n ;
 
-let subarr = [];
+      		  html= await page.evaluate(() => document.body.innerHTML) ;
+              $ = cheerio.load(html);
+              ele = ($('.problems > tbody > tr > td:nth-child(2) > div > div ').text()).toString() ;
+              arr= ele.split(' ') ;
+			  n = arr[2] ;
+			  flag = 0;
+              var mp = new Map()
+              var list=[]
+              for(i=0 ; i<1 ;i++)
+              {
+            	    html= await page.evaluate(() => document.body.innerHTML) ;
+              	 	$ = cheerio.load(html);
+              	 	console.log('page: ' + (i+1)) ;
+              	 	var m = $('.dataTable > tbody > tr').length ;
+              	 //	console.log(m); 
+              	 	for(j=1 ;j<=m ;j++)
+              	 	{
+              	 		ele = $('.dataTable > tbody > tr:nth-child('+ j +') > td > a') ;
+              	 		arr = ($(ele).attr('href')).split('/') ;
 
-let timeStart;
-async function codeChefscraper(user){ 
+              	 		var contest,problem ;
+              	 		if(arr.length == 4)
+              	 		{
+              	 			contest = arr[1] ;
+              	 			problem = arr[3] ;
+              	 		}
+              	 		if(arr.length == 3)
+              	 	 	{
+              	 	 		contest = 'false' ;
+              	 	 		problem = arr[2] ;
+              	 	 	}
+              	 		if(mp.has((contest,problem)))
+              	 		continue ;
+              	 		else 
+              	 		{
+              	 			list.push([contest,problem]) ;
+              	 			mp.set((contest,problem),true) ;
+              	 		}
+              	 	} 
+            	    if(i!=n-1)
+          	 	  	await page.click('.problems > tbody > tr > td:nth-child(3) > a') ;
+          	 	  	await page.waitFor(2000) ;
 
-	subarr = []
-	let url = 'https://www.codechef.com/users/' + user;
-	console.log(url);
-	let browser = await puppeteer.launch({headless:false});
-	// console.log("here");
- 	let page = await browser.newPage();
- 	
- 	timeStart = (new Date()).getTime();
- 	
- 	await page.goto(url,{waituntil : 'domcontentloaded',
- 						timeout:300000,
- 						headless:true});
+          	 	  	//break ;
+              }
+              console.log(list) ;
 
+              //***************************************
+              for(i=0 ; i<list.length ; i++)
+              {
+              		url = 'https://www.codechef.com/' ;
+              	 	if(list[i][0] == 'false')
+              		url = url + 'status/' + list[i][1] + ',' + userName ;
+              		else 
+              		url = url + list[i][0] + '/status/' + list[i][1] + ',' + userName ;
+              		await page.goto(url);
+              		await page.waitFor(2000) ;
 
+              		html= await page.evaluate(() => document.body.innerHTML) ;
+              	 	$ = cheerio.load(html);
 
- 	let timeTotal = (new Date()).getTime() - timeStart;
- 	console.log("Time to fetch Page "+ fetchtime());
- 	
- 	data = await page.content();
- 	console.log("Time to get content "+ fetchtime());
+              	 	n = $('.dataTable > tbody > tr').length
 
- 	fetchData(data);
- 	console.log("DONE");
- 	 	let totalpages = fetchNumberOfPages(data);
-	
-	for(let i=0;i<totalpages;i++){
+              	 	for(j=1 ; j<=n ; j++)
+              	 	{
+              	 		 arr=[]
+              	 		 for(k =1 ; k<=8 ; k++)
+              	 		 {
+              	 		 	 if(k!=3 && k!=4)
+              	 		 	 {
+              	 		 	 	ele = ($('.dataTable > tbody > tr:nth-child('+ j +') > td:nth-child('+ k +')')).text() ;
+              	 		 	 	arr.push(ele) ;
+              	 		 	 }
+							}
+							console.log(arr);
+              	 		 verdict = ($('.dataTable > tbody > tr:nth-child('+ j +') > td:nth-child(4) > span').attr('title')) ;
+              	 		 if(verdict=='') // challenge problem
+              	 		 verdict = 'accepted' ;
 
-	 	if(i != totalpages-1){
-	    	page.click('.problems > tbody > tr > td:last-of-type > a');
-	    }	
-	    	await page.waitFor(1500);
-	    	data = 	await page.content();
-		
-	 	
-	 	console.log("CLICKED!!!" + (i+1));
-	 	fetchData(data);
-	}
-	console.log("Total time "+ fetchtime());
- 	await browser.close();
+							link = 'https://www.codechef.com/viewsolution/' + arr[0] ;
+							
+							if(link == lastLink) 
+							{
+								flag = 1;
+								break;
+							}
 
- 	 	
-	let jsonArr = [];
- 	// console.log(subarr.length);
-	for(let i=0;i<subarr.length;i+=4){
-		jsonArr.push({
-			dateTime : subarr[i],
-			questionID: subarr[i+1],
-			submissionStatus:subarr[i+2],
-			languageUsed: subarr[i+3]
-		})
-		// console.log(subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
-		// fs.outputFile(user+"_codechef.txt",subarr[i]+" "+subarr[i+1]+" "+subarr[i+2]+" "+subarr[i+3]+"\n");
-	}
-	console.log(jsonArr);
-	return jsonArr;
-
-};
-
-
-
-//function to fectch data form the acquired html
-function fetchData(data){
-  
- const $ = cheerio.load(data); 
-	$('.dataTable > tbody > tr').each((index,row) => {
-		$(row).children().each((childIndex,cell)=>{
-			if($(cell).text()==""){
-				subarr.push($(cell).find('span').attr('title'));
-			}
-			else{
-				subarr.push($(cell).text());
-			}
-		});
-	});
+              	 		 submission.push
+              	 		 (
+              	 		 	{
+              	 		 		link : link ,
+              	 		 		date : arr[1],
+              	 		 		language : arr[4],
+								verdict : verdict,
+								problem : 'https://www.codechef.com/problems/'+list[i][1]
+              	 		 	}
+              	 		 );
+              	 		 console.log(submission) ;
+					   }
+					   if(flag == 1)
+                			break;
+              		 
+              } 
+              await browser.close();
+              return submission;
+      }
+      catch(e) 
+      {
+            console.log(e) ;
+      }                                         
 }
-
-function fetchNumberOfPages(data){
-	const $ = cheerio.load(data); 
-
-	let pagestring = $('.problems > tbody > tr > td > #loader > .pageinfo',data).text();
-	let totpages="";
-	let i = 0;
-	let spcnt=0;
-	while(i<pagestring.length){
-		if(spcnt==2){
-			totpages+=pagestring[i];
-		}
-		if(pagestring[i]==" "){
-			spcnt++;
-		}
-		i++;
-	}
-	return Number(totpages);
-}
-function fetchtime(){
-	return (((new Date).getTime() - timeStart)/1000) + " seconds";
-}
-
-// codeChefscraper('prathyushacse');
-module.exports = codeChefscraper;
+//myScraper('mridul1809');
+module.exports = myScraper;
