@@ -24,13 +24,59 @@ class Dashboard extends Component {
        name : this.props.location.state.name , 
        codechefhandle : this.props.location.state.codechefhandle , 
       codeforceshandle : this.props.location.state.codeforceshandle ,
-      hackerearthhandle : this.props.location.state.hackerearthhandle
+      hackerearthhandle : this.props.location.state.hackerearthhandle ,
+      firsttime : this.props.location.state.firsttime
     }
   }
   
   componentDidMount()
   {
       var that=this;
+      console.log(this.state.firsttime);
+      if(this.state.firsttime)
+      {
+        console.log("hello2");
+          axios.get('http://127.0.0.1:3000/users/fetch',{
+              headers : {
+              'Authorization' : cookies.get('token')
+              }
+          })
+          .then(function (response) {
+          console.log("hello");
+          axios.get('http://127.0.0.1:3000/submissions/'+that.state.username)
+      .then(function (response) {
+      console.log("hello");
+      console.log(response);
+      })
+      .catch(function (error) {
+      console.log('error')
+      console.log(error);
+      });
+          })
+          .catch(function (error) {
+          console.log('error')
+          console.log(error);
+          });
+      }
+      else
+      {
+        axios.get('http://127.0.0.1:3000/submissions/'+that.state.username)
+        .then(function (response) {
+        console.log("hello");
+        console.log(response);
+        })
+        .catch(function (error) {
+        console.log('error')
+        console.log(error);
+        });
+      }
+      
+      
+     
+  }    
+  refresh(event){
+
+    var that=this;
       axios.get('http://127.0.0.1:3000/users/fetch',{
           headers : {
           'Authorization' : cookies.get('token')
@@ -38,18 +84,14 @@ class Dashboard extends Component {
       })
       .then(function (response) {
       console.log("hello");
-      console.log(response);
-      that.setState({
-          submissions : response.data
-      });
-      
       })
       .catch(function (error) {
       console.log('error')
       console.log(error);
       });
       console.log("Component DID mount");
-  }    
+
+  }
   render() {
       const loc = this.props.location;
       console.log(this.state.codechefhandle);
@@ -85,6 +127,11 @@ class Dashboard extends Component {
                  <td className="handles"> 
                     <div>
                     <RaisedButton style={{width : "200px"}} href={`https://www.hackerearth.com/@${this.state.hackerearthhandle}`} >  Hackerearth Profile  </RaisedButton>
+                    </div>
+                 </td>
+                 <td className="handles"> 
+                    <div>
+                    <RaisedButton style={{width : "200px"}} onClick={(event)=>this.refresh(event)}> Refresh Submissions </RaisedButton>
                     </div>
                  </td>
                </tr>

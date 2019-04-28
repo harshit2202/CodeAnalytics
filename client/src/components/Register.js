@@ -23,7 +23,8 @@ class Register extends Component {
           state : {
               username : this.state.username , 
               email : this.state.email ,
-              name : this.state.first_name + " " + this.state.last_name
+              name : this.state.first_name + " " + this.state.last_name,
+              firsttime : true
           }
         }
       } />
@@ -39,7 +40,8 @@ class Register extends Component {
       firstName : this.state.first_name,
       lastName : this.state.last_name,
       email : this.state.email,
-      password : this.state.password
+      password : this.state.password,
+      firsttime : true
     })
     .then(function (response) {
       var token = response.data.token;
@@ -72,6 +74,7 @@ class Register extends Component {
       email:'',
       password:'',
       username:'',
+      firsttime : false,
       redirect : false,
       redirect2 : false
     }

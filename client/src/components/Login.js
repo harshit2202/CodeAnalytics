@@ -21,7 +21,8 @@ class Login extends Component {
               pathname : '/dashboard',
               state : {
                   username : this.state.username , 
-                  name : this.state.name
+                  name : this.state.name,
+                  firsttime : false
               }
             }
           } />
@@ -60,6 +61,7 @@ class Login extends Component {
          username : '',
          password : '',
          name : '',
+         firsttime : false,
          redirect : false
       }
     }

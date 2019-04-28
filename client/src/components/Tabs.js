@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import SimpleTable from './Table.js';
 import Tableclass from './Tableclass.js';
 import Statistics from './Statistics.js';
+import UserProblems from './UserProblems.js';
 
 function TabContainer(props) {
   return (
@@ -55,16 +56,16 @@ class SimpleTabs extends React.Component {
             <Tab label="Statistics" />
             <Tab label="HeatMap" />
             <Tab label="Ratings" />
-            <Tab label="Upcoming Contests" />
-            
+            <Tab label="Solved Problems" />
+            <Tab label="Unsolved Problems" />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer> <Tableclass subdata={this.props.subdata}/> </TabContainer>}
         {value === 1 && <TabContainer><Statistics subdata={this.props.subdata}/></TabContainer>}
         {value === 2 && <TabContainer>HeatMap</TabContainer>}
         {value === 3 && <TabContainer>Ratings</TabContainer>}
-        {value === 4 && <TabContainer>Upcoming Contests</TabContainer>}
-        
+        {value === 4 && <TabContainer>Solved Problems<UserProblems /></TabContainer>}
+        {value === 5 && <TabContainer>Unsolved Problems<UserProblems /></TabContainer>}
       </div>
     );
   }

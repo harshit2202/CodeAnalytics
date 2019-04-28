@@ -87,14 +87,16 @@ exports.fetchSubmissions = async function(req,res) {
         if(handles.codeforcesHandle)
             list = await cfScraper(handles.codeforcesHandle);
 
-        // if(handles.codechefHandle)
+        // if(hand3les.codechefHandle)
         //     list1 = await ccscraper(handles.codechefHandle);
         
         for(i=0;i<list.length;i++) {
 
             let problem = await ProblemModel.findOne({link : list[i].problem});
             list[i].problem = problem._id;
-            list[i].user = req.user._id;
+            list[i].user = req.user;
+            console.log(req.user);
+            console.log(list[i]);
             try { 
                 let submission = await SubmissionModel.create(list[i]);
                 problem.submissions.push(submission._id);
@@ -136,6 +138,7 @@ exports.getSubmissions = async function(req,res) {
                 (err , user) => {
                     if(err)
                         res.status(500).json( { error : "Some Error Occured"});
+                    //console.log(user.submissions);
                     res.status(200).json({ submissions : user.submissions});
                 })
         });

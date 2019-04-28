@@ -29,6 +29,7 @@ class Handles extends Component {
               username : this.state.username ,
               email : this.state.email ,
               name : this.state.name ,
+              firsttime : true
           }
         }
       } />
@@ -79,6 +80,7 @@ class Handles extends Component {
       username : this.props.location.state.username ,
       email : this.props.location.state.email ,
       name : this.props.location.state.name , 
+      firsttime : true,
       redirect : false
      }
   }
