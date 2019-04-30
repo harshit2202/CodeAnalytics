@@ -64,7 +64,7 @@ async function myScraper(url)
                           var temp_tags = str.split(", ") ;
                           for(k=0; k<temp_tags.length ; k++)
                           {
-                              if(map.has(temp_tags[k])) 
+                              if(map.has(temp_tags[k]) &&  tags.includes(map.get(temp_tags[k]))==false) 
                               {
                                   tags.push(map.get(temp_tags[k]))  ;                                
                               }
@@ -85,7 +85,7 @@ async function myScraper(url)
               				temp = []
               				temp = ele.split('\n') ;
               				var tag = temp[1].trim() ;
-              				if(map.has(tag))
+              				if(map.has(tag) && tags.includes(map.get(tag))==false)
               				tags.push(map.get(tag)) ;
               			}
 
@@ -110,7 +110,7 @@ async function myScraper(url)
       }
 }
 
-// myScraper('https://www.codechef.com/problems/BSTOPS');
+// myScraper('https://www.codechef.com/problems/TYPING');
 // myScraper('https://codeforces.com/problemset/problem/1146/G');
 
 module.exports = myScraper;

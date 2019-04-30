@@ -85,12 +85,14 @@ async function myScraper(url)
                               let arr=[] ;
                               arr=(ele.text().replace(/\s\s+/g,'@').split("@")) ;
                               var tags=[] ;
-                              for(k=3 ; k<arr.length-2 ; k++)
+                              for(k=3 ; k<=(arr.length-4) ; k++)
                               {
-                                if(map.has(arr[k])) 
-                                {
-                                    tags.push(map.get(arr[k]))  ;                                
-                                }
+                                  var tmp = arr[k].replace (/,/g, "") ;
+                                  if(map.has(tmp))
+                                  {
+                                        if(tags.includes(map.get(tmp)) == false)
+                                        tags.push(map.get(tmp))  ;
+                                  } 
                               }
                               if(tags.length == 0)
                               tags.push('miscellaneous') ;
@@ -106,24 +108,12 @@ async function myScraper(url)
                           
                          
                           await page.waitFor(2000);
-                          // await page.$$eval(selector, anchors => 
-                          // {
-                          //       anchors.map(anchor => {
-                          //       if(anchor.textContent == '→')
-                          //       {
-                          //           anchor.click();
-                          //       }
-                          //    })
-                          // });
                           i++ ;
                           //break ;
               }   
                 console.log('Done !') ;
                 await browser.close();
                 console.log(list) ;
-        //      fs.writeFile('output1.txt',a_arr, (err) =>{ 
-        //           if (err) throw err; 
-        //      }) 
         console.log(list.length);
         await ProblemModel.insertMany(list , function(error , docs) {
             if(error)
