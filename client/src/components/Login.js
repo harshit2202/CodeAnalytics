@@ -37,7 +37,7 @@ class Login extends Component {
         password : this.state.password
         })
         .then(function (response) {
-        var token = response.data.token;
+        var token = response.data.data.token;
         console.log(token);
         console.log(response.data);
         cookies.set('token',token,{ path: '/' });

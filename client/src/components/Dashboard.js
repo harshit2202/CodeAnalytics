@@ -18,7 +18,11 @@ class Dashboard extends Component {
     super(props)
     
     this.state = {
-      submissions : [] ,
+       submissions : [],
+       solved : [] , 
+       unsolved : [] , 
+       tagspie : [] ,
+       verdictspie : [] , 
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
        name : this.props.location.state.name , 
@@ -32,47 +36,27 @@ class Dashboard extends Component {
   componentDidMount()
   {
       var that=this;
-      console.log(this.state.firsttime);
-      if(this.state.firsttime)
-      {
-        console.log("hello2");
-          axios.get('http://127.0.0.1:3000/users/fetch',{
-              headers : {
-              'Authorization' : cookies.get('token')
-              }
-          })
-          .then(function (response) {
-          console.log("hello");
-          axios.get('http://127.0.0.1:3000/submissions/'+that.state.username)
+      axios.get('http://127.0.0.1:3000/users/dashboard',{
+        headers : {
+        'Authorization' : cookies.get('token')
+        }
+      })
       .then(function (response) {
       console.log("hello");
       console.log(response);
+      that.setState({
+        submissions : response.data.data.user.submissions,
+        tagspie : response.data.data.tags_pie,
+        unsolved : response.data.data.unsolved ,
+        solved : response.data.data.solved,
+        verdictspie : response.data.data.verdict_pie
+      })
+      console.log(that.state);
       })
       .catch(function (error) {
       console.log('error')
       console.log(error);
       });
-          })
-          .catch(function (error) {
-          console.log('error')
-          console.log(error);
-          });
-      }
-      else
-      {
-        axios.get('http://127.0.0.1:3000/submissions/'+that.state.username)
-        .then(function (response) {
-        console.log("hello");
-        console.log(response);
-        })
-        .catch(function (error) {
-        console.log('error')
-        console.log(error);
-        });
-      }
-      
-      
-     
   }    
   refresh(event){
 
@@ -94,7 +78,6 @@ class Dashboard extends Component {
   }
   render() {
       const loc = this.props.location;
-      console.log(this.state.codechefhandle);
       return (
       <div>
           <MuiThemeProvider>
@@ -111,7 +94,7 @@ class Dashboard extends Component {
                <tr>
                  <td className="tduser">
                     <div id="userdetails" className="center">
-                      <h2>{this.state.name}</h2>
+                      <h2>{this.state.username}</h2>
                     </div>
                  </td>
                  <td className="handles"> 
@@ -138,7 +121,7 @@ class Dashboard extends Component {
              </tbody>
            </table>
            </div> 
-            <SimpleTabs subdata={this.state.submissions}/>
+            <SimpleTabs subdata={this.state} />
            </div>
          </MuiThemeProvider>
       </div>

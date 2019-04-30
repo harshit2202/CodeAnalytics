@@ -108,7 +108,7 @@ exports.fetchSubmissions = async function(req,res) {
             list = await cfScraper(handles.codeforcesHandle , handles.lastCf);
 
         if(handles.codechefHandle)
-             list1 = await cCscraper(handles.codechefHandle , handles.lastCc);
+             list1 = await ccscraper(handles.codechefHandle , handles.lastCc);
 
         for(let i=0;i<list1.length;i++)
             list.push(list1[i]);
