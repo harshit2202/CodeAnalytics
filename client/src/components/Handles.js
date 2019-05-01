@@ -36,36 +36,37 @@ class Handles extends Component {
   }
   handleClick()
   {
+    this.setRedirect();
     var that = this;
-    axios.post('http://127.0.0.1:3000/users/handles', {
-      codeforcesHandle : this.state.codeforceshandle,
-      codechefHandle : this.state.codechefhandle,
-      hackerearthHandle : this.state.hackerearthhandle,
-    } , {
-      headers : {
-        'Authorization' : cookies.get('token')
-      }
-    })
-    .then(function (response) {
+    // axios.post('http://127.0.0.1:3000/users/handles', {
+    //   codeforcesHandle : this.state.codeforceshandle,
+    //   codechefHandle : this.state.codechefhandle,
+    //   hackerearthHandle : this.state.hackerearthhandle,
+    // } , {
+    //   headers : {
+    //     'Authorization' : cookies.get('token')
+    //   }
+    // })
+    // .then(function (response) {
 
-      console.log(response.data);
-      zz
+    //   console.log(response.data);
       
-    })
-    .catch(function (error) {
-      if(error.response.code === 409) {
-        alert("Username or Email already exists");
-        this.setState(
-          {
-            username : "" ,
-            email : ""
-          }
-        )
-      }
+      
+    // })
+    // .catch(function (error) {
+    //   if(error.response.code === 409) {
+    //     alert("Username or Email already exists");
+    //     this.setState(
+    //       {
+    //         username : "" ,
+    //         email : ""
+    //       }
+    //     )
+    //   }
         
-      alert(error.response.data);
-      console.log(error.response.status);
-    });
+    //   alert(error.response.data);
+    //   console.log(error.response.status);
+    // });
 
   }
   constructor(props){

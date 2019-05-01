@@ -32,36 +32,37 @@ class Register extends Component {
   }
   handleClick()
   {
-    console.log("hello");
-    var that = this;
-    axios.post('http://127.0.0.1:3000/auth/signup', {
-      username : this.state.username,
-      firstName : this.state.first_name,
-      lastName : this.state.last_name,
-      email : this.state.email,
-      password : this.state.password
-    })
-    .then(function (response) {
-      var token = response.data.token;
-      console.log(token);
-      cookies.set('token',token,{ path: '/' });
-      that.setRedirect();
-    })
-    .catch(function (error) {
-      console.log(error);
-      if(error.response.status === 409) {
-        alert("Username or Email already exists");
-        this.setState(
-          {
-            username : z"" ,
-            email : ""
-          }
-        )
-      }
+    this.setRedirect();
+    // console.log("hello");
+    // var that = this;
+    // axios.post('http://127.0.0.1:3000/auth/signup', {
+    //   username : this.state.username,
+    //   firstName : this.state.first_name,
+    //   lastName : this.state.last_name,
+    //   email : this.state.email,
+    //   password : this.state.password
+    // })
+    // .then(function (response) {
+    //   var token = response.data.token;
+    //   console.log(token);
+    //   cookies.set('token',token,{ path: '/' });
+    //   that.setRedirect();
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    //   if(error.response.status === 409) {
+    //     alert("Username or Email already exists");
+    //     this.setState(
+    //       {
+    //         username : "" ,
+    //         email : ""
+    //       }
+    //     )
+    //   }
         
-      alert(error.response.data);
-      console.log(error.response.status);
-    });
+    //   alert(error.response.data);
+    //   console.log(error.response.status);
+    // });
 
   }
   constructor(props){
