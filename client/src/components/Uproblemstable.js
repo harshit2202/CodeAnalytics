@@ -52,7 +52,11 @@ class UProblemstable extends Component {
         <TableBody>
           {this.props.subdata.map((row, id) => (
             <TableRow key={id}>
-              <TableCell align="center">Codeforces</TableCell>
+              <TableCell align="center">{
+                () => {
+                row.questionID.includes("codeforces") == true ? `Codeforces` : `Codechef`
+                }
+              }</TableCell>
               <TableCell align="center"><a href={`/problempage/${row.questionID}`}>Problem</a></TableCell>
             </TableRow>
           ))}

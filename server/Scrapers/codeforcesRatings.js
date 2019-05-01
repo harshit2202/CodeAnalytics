@@ -5,7 +5,7 @@ async function myScraper(userName)
 {
       try
       {  
-              const browser = await puppeteer.launch({headless:false});
+              const browser = await puppeteer.launch({headless:true});
               const page = await browser.newPage();
               await page.goto('https://codeforces.com/contests/with/' + userName);
               await page.waitFor(1000) ;
@@ -31,4 +31,6 @@ async function myScraper(userName)
         console.log(e) ;
       }
 }
-myScraper('tourist')
+//myScraper('tourist')
+
+module.exports = myScraper;

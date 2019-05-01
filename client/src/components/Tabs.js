@@ -65,7 +65,7 @@ class SimpleTabs extends React.Component {
         {value === 0 && <TabContainer> <Tableclass subdata={this.props.subdata}/> </TabContainer>}
         {value === 1 && <TabContainer><Statistics subdata={this.props.subdata}/></TabContainer>}
         {value === 2 && <TabContainer><Heatmap subdata={this.props.subdata}></Heatmap></TabContainer>}
-        {value === 3 && <TabContainer><Rating /></TabContainer>}
+        {value === 3 && <TabContainer><Rating subdata={this.props.subdata}/></TabContainer>}
         {value === 4 && <TabContainer>Solved Problems<UserProblems subdata={this.props.subdata.solved} /></TabContainer>}
         {value === 5 && <TabContainer>Unsolved Problems<UserProblems subdata={this.props.subdata.unsolved}/></TabContainer>}
       </div>

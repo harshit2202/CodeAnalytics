@@ -29,7 +29,18 @@ class Tableclass extends Component {
       super(props)
         console.log("COnstructor")
     }
-   
+   whattoput(val)
+   {
+      if(val.includes("codeforces"))
+      {
+        return "Codeforces";
+
+      }
+      else
+      {
+        return "Codechef";
+      }
+   }
   render() {
     const { classes } = this.props;
     console.log(this.props.subdata.submissions);
@@ -51,7 +62,7 @@ class Tableclass extends Component {
         <TableBody>
           {this.props.subdata.submissions.map((row, id) => (
             <TableRow key={id}>
-              <TableCell align="center">Codeforces</TableCell>
+              <TableCell align="center">{this.whattoput(row.problem.link)}</TableCell>
               <TableCell align="center">{row.time}</TableCell>
               <TableCell align="center"><a href={row.problem.link}>{row.problem.name}</a></TableCell>
               <TableCell align="center">{row.language}</TableCell>

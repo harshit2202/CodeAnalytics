@@ -7,9 +7,11 @@ const ProblemModel = require('../models/ProblemModel')
 const SubmissionModel = require('../models/SubmissionModel')
 const NewProblemScraper = require('../Scrapers/newProblemScraper')
 const utility = require('../controllers/userUtility')
+const cfrating = require('../Scrapers/codeforcesRatings')
 
 exports.dashboard = async function(req , res) {
 
+    rating_graph = null;
     await UserModel.findOne( {_id : req.user } , ['-password','-isLoggedIn','-__v'])
         .populate('submissions' , '-user')
         .exec((err,user) => {
@@ -27,6 +29,14 @@ exports.dashboard = async function(req , res) {
                     unsolved = await utility.generate_unsolved(user.submissions,solved);
                     tags_pie = await utility.generate_tags_pie(solved);
 
+                    if(rating_graph) {
+
+                    }
+                    else {
+                        const handles = await HandleModel.findOne({ userId : req.user});
+                        if(handles.codeforcesHandle)
+                            rating_graph = await cfrating(handles.codeforcesHandle);
+                    }
                     var data = { user }
 
                     data.solved = solved;
@@ -34,14 +44,14 @@ exports.dashboard = async function(req , res) {
                     data.tags_pie = tags_pie;
                     data.verdict_pie = verdict_pie;
                     data.heat_graph = heat_graph;
+                    data.rating_graph = rating_graph;
 
                     console.log(user.submissions.length);
 
-                    data.user.submissions.sort((a,b) => {
-                        if(a.time <= b.time)
-                            -1;
-                        else
-                            1;
+                    user.submissions.sort((a,b) => {
+                        ad = new Date(a.time);
+                        bd = new Date(b.time);
+                        return bd-ad;
                     });
 
                     data.token = tokenController.getToken(user._id);

@@ -24,6 +24,7 @@ class Dashboard extends Component {
        tagspie : [] ,
        verdictspie : [] , 
        heat_graph : [],
+       rating_graph : [] , 
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
        name : this.props.location.state.name , 
@@ -48,6 +49,7 @@ class Dashboard extends Component {
       that.setState({
         submissions : response.data.data.user.submissions,
         tagspie : response.data.data.tags_pie,
+        rating_graph : response.data.data.rating_graph,
         unsolved : response.data.data.unsolved ,
         solved : response.data.data.solved,
         verdictspie : response.data.data.verdict_pie,
