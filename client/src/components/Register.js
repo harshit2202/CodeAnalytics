@@ -44,7 +44,7 @@ class Register extends Component {
       firsttime : true
     })
     .then(function (response) {
-      var token = response.data.token;
+      var token = response.data.data.token;
       console.log(token);
       cookies.set('token',token,{ path: '/' });
       that.setRedirect();

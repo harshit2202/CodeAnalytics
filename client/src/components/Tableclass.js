@@ -41,17 +41,17 @@ class Tableclass extends Component {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">Site Profile</TableCell>
-            <TableCell align="center">Time Of Submission</TableCell>
-            <TableCell align="center">Problem </TableCell>
-            <TableCell align="center">Language</TableCell>
-            <TableCell align="center">Status</TableCell>
+            <TableCell align="center"><b>Site Profile</b></TableCell>
+            <TableCell align="center"><b>Time Of Submission</b></TableCell>
+            <TableCell align="center"><b>Problem </b></TableCell>
+            <TableCell align="center"><b>Language</b></TableCell>
+            <TableCell align="center"><b>Status</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.subdata.submissions.map((row, id) => (
             <TableRow key={id}>
-              <TableCell align="center">CodeChef</TableCell>
+              <TableCell align="center">Codeforces</TableCell>
               <TableCell align="center">{row.time}</TableCell>
               <TableCell align="center"><a href={row.problem.link}>{row.problem.name}</a></TableCell>
               <TableCell align="center">{row.language}</TableCell>

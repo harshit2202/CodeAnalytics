@@ -94,7 +94,7 @@ class Dashboard extends Component {
                <tr>
                  <td className="tduser">
                     <div id="userdetails" className="center">
-                      <h2>{this.state.username}</h2>
+                      <h2>{this.state.name}</h2>
                     </div>
                  </td>
                  <td className="handles"> 
