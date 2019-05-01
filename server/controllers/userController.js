@@ -21,7 +21,7 @@ exports.dashboard = async function(req , res) {
                     if(err)
                         res.status(500).json( { error : "Some Error Occured"});
                     
-                    //heat_graph = utility.generate_heat_graph(user.submissions);
+                    heat_graph = await utility.generate_heat_graph(user.submissions);
                     verdict_pie = await utility.generate_verdict_pie(user.submissions);
                     solved = await utility.generate_solved(user.submissions);
                     unsolved = await utility.generate_unsolved(user.submissions,solved);
@@ -33,6 +33,7 @@ exports.dashboard = async function(req , res) {
                     data.unsolved = unsolved;
                     data.tags_pie = tags_pie;
                     data.verdict_pie = verdict_pie;
+                    data.heat_graph = heat_graph;
 
                     console.log(user.submissions.length);
 

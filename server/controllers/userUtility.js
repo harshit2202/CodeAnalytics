@@ -9,7 +9,48 @@ const NewProblemScraper = require('../Scrapers/newProblemScraper')
 
 exports.generate_heat_graph = async function(submissions){
 
+    var dict = {};
 
+    for(let i=0; i<submissions.length; i++){
+        var date = submissions[i].date;
+        var ans;
+
+        if(submissions[i].problem.link.includes("codeforces")){
+            //Jan/22/2019
+            var list = date.split(" ");
+            var arr = list[0].split("/");
+
+            var month;
+            if(list[0]=='Jan')  month = "01";
+            if(list[0]=='Feb')  month = "02";
+            if(list[0]=='Mar')  month = "03";
+            if(list[0]=='Apr')  month = "04";
+            if(list[0]=='May')  month = "05";
+            if(list[0]=='Jun')  month = "06";
+            if(list[0]=='Jul')  month = "07";
+            if(list[0]=='Aug')  month = "08";
+            if(list[0]=='Sep')  month = "09";
+            if(list[0]=='Oct')  month = "10";
+            if(list[0]=='Nov')  month = "11";
+            if(list[0]=='Dec')  month = "12";
+            ans = arr[2] + "-" + arr[1] +  "-" + month;
+        }
+
+        else{
+            //02:22 PM 20/04/19
+            var list = date.split(" ");
+            var arr = list[2].split("/");
+
+            ans = "20" + arr[2] + "-" + arr[0] + "-" + arr[1];
+
+        }
+        ans = ans + "T00:00:00.000Z";
+
+        if( ans in dict)
+            dict[ans] = dict[ans] + 1;
+        else
+            dict[ans] = 1;
+    }
 
 }
 
