@@ -37,6 +37,13 @@ exports.dashboard = async function(req , res) {
 
                     console.log(user.submissions.length);
 
+                    data.user.submissions.sort((a,b) => {
+                        if(a.time <= b.time)
+                            -1;
+                        else
+                            1;
+                    });
+
                     data.token = tokenController.getToken(user._id);
                     res.status(200).json( { data });
                 });
