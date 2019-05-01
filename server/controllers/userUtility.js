@@ -10,7 +10,7 @@ const NewProblemScraper = require('../Scrapers/newProblemScraper')
 exports.generate_heat_graph = async function(submissions){
 
     var dict = {};
-
+    // console.log(submissions);
     for(let i=0; i<submissions.length; i++){
         var date = submissions[i].time;
         var ans = date.toISOString().slice(0,11) + "T00:00:00.000Z";
