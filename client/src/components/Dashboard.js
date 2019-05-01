@@ -18,19 +18,49 @@ class Dashboard extends Component {
     super(props)
     
     this.state = {
-      submissions : [] ,
+       submissions : [],
+       solved : [] , 
+       unsolved : [] , 
+       tagspie : [] ,
+       verdictspie : [] , 
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
        name : this.props.location.state.name , 
        codechefhandle : this.props.location.state.codechefhandle , 
       codeforceshandle : this.props.location.state.codeforceshandle ,
-      hackerearthhandle : this.props.location.state.hackerearthhandle
+      hackerearthhandle : this.props.location.state.hackerearthhandle ,
+      firsttime : this.props.location.state.firsttime
     }
   }
   
   componentDidMount()
   {
       var that=this;
+      axios.get('http://127.0.0.1:3000/users/dashboard',{
+        headers : {
+        'Authorization' : cookies.get('token')
+        }
+      })
+      .then(function (response) {
+      console.log("hello");
+      console.log(response);
+      that.setState({
+        submissions : response.data.data.user.submissions,
+        tagspie : response.data.data.tags_pie,
+        unsolved : response.data.data.unsolved ,
+        solved : response.data.data.solved,
+        verdictspie : response.data.data.verdict_pie
+      })
+      console.log(that.state);
+      })
+      .catch(function (error) {
+      console.log('error')
+      console.log(error);
+      });
+  }    
+  refresh(event){
+
+    var that=this;
       axios.get('http://127.0.0.1:3000/users/fetch',{
           headers : {
           'Authorization' : cookies.get('token')
@@ -38,21 +68,16 @@ class Dashboard extends Component {
       })
       .then(function (response) {
       console.log("hello");
-      console.log(response);
-      that.setState({
-          submissions : response.data
-      });
-      
       })
       .catch(function (error) {
       console.log('error')
       console.log(error);
       });
       console.log("Component DID mount");
-  }    
+
+  }
   render() {
       const loc = this.props.location;
-      console.log(this.state.codechefhandle);
       return (
       <div>
           <MuiThemeProvider>
@@ -69,7 +94,7 @@ class Dashboard extends Component {
                <tr>
                  <td className="tduser">
                     <div id="userdetails" className="center">
-                      <h2>{this.state.name}</h2>
+                      <h2>{this.state.username}</h2>
                     </div>
                  </td>
                  <td className="handles"> 
@@ -87,11 +112,16 @@ class Dashboard extends Component {
                     <RaisedButton style={{width : "200px"}} href={`https://www.hackerearth.com/@${this.state.hackerearthhandle}`} >  Hackerearth Profile  </RaisedButton>
                     </div>
                  </td>
+                 <td className="handles"> 
+                    <div>
+                    <RaisedButton style={{width : "200px"}} onClick={(event)=>this.refresh(event)}> Refresh Submissions </RaisedButton>
+                    </div>
+                 </td>
                </tr>
              </tbody>
            </table>
            </div> 
-            <SimpleTabs subdata={this.state.submissions}/>
+            <SimpleTabs subdata={this.state} />
            </div>
          </MuiThemeProvider>
       </div>

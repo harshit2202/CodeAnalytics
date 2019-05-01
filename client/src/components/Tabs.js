@@ -22,6 +22,8 @@ const randomValues = getRange(365).map(index => {
     count: getRandomInt(1, 3),
   };
 });
+import UserProblems from './UserProblems.js';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -68,8 +70,8 @@ class SimpleTabs extends React.Component {
             <Tab label="Statistics" />
             <Tab label="HeatMap" />
             <Tab label="Ratings" />
-            <Tab label="Upcoming Contests" />
-            
+            <Tab label="Solved Problems" />
+            <Tab label="Unsolved Problems" />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer> <Tableclass subdata={this.props.subdata}/> </TabContainer>}
@@ -99,8 +101,8 @@ class SimpleTabs extends React.Component {
     
 }</TabContainer>}
         {value === 3 && <TabContainer>Ratings</TabContainer>}
-        {value === 4 && <TabContainer>Upcoming Contests</TabContainer>}
-        
+        {value === 4 && <TabContainer>Solved Problems<UserProblems subdata={this.props.subdata.solved} /></TabContainer>}
+        {value === 5 && <TabContainer>Unsolved Problems<UserProblems subdata={this.props.subdata.unsolved}/></TabContainer>}
       </div>
     );
   }

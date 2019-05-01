@@ -23,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-class Tableclass extends Component {
+class UserProblems extends Component {
 
     constructor(props) {
       super(props)
@@ -33,7 +33,7 @@ class Tableclass extends Component {
   render() {
     const { classes } = this.props;
     console.log(this.props.subdata.submissions);
-    if(this.props.subdata.submissions.length>0)
+    if(this.props.subdata.length>0)
     {
       return (
       <div>
@@ -42,20 +42,18 @@ class Tableclass extends Component {
         <TableHead>
           <TableRow>
             <TableCell align="center">Site Profile</TableCell>
-            <TableCell align="center">Time Of Submission</TableCell>
-            <TableCell align="center">Problem </TableCell>
-            <TableCell align="center">Language</TableCell>
-            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Problem Name</TableCell>
+            <TableCell align="center">Problem Link</TableCell>
+            <TableCell align="center">Tags</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.subdata.submissions.map((row, id) => (
+          {this.props.subdata.map((row, id) => (
             <TableRow key={id}>
               <TableCell align="center">CodeChef</TableCell>
-              <TableCell align="center">{row.time}</TableCell>
-              <TableCell align="center"><a href={row.problem.link}>{row.problem.name}</a></TableCell>
-              <TableCell align="center">{row.language}</TableCell>
-              <TableCell align="center">{row.verdict}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center"><a href={row.link}>{row.link}</a></TableCell>
+              <TableCell align="center">{row.tags[0]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -72,8 +70,8 @@ class Tableclass extends Component {
   }
 }
 
-Tableclass.propTypes = {
+UserProblems.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-export default withStyles(styles)(Tableclass)
+export default withStyles(styles)(UserProblems)

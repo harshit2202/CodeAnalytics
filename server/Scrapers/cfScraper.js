@@ -9,6 +9,7 @@ async function myScraper(userName,lastLink)
 {
       url = 'https://codeforces.com/submissions/' + userName ;
       console.log("Scraping");
+      console.log(lastLink);
       try
       {  
         const browser = await puppeteer.launch({headless:false});
@@ -66,8 +67,9 @@ async function myScraper(userName,lastLink)
                    arr = ff.split('/');
                    plink = 'https://codeforces.com/problemset/problem/' + arr[2] + '/' + arr[4];
                    
-                  if(plink == lastLink) 
+                  if(link == lastLink) 
                   {
+                      console.log("existing");
                       flag = 1;
                       break;
                   }
