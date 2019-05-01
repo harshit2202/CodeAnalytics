@@ -65,16 +65,20 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 //console.log('HERE!!!!!! ' + process.env.EXPRESS_SECRET);
 //This verifies that the token sent by the user is valid
 passport.use(new JWTstrategy({
+
+  
   //secret we used to sign our JWT
   secretOrKey : process.env.EXPRESS_SECRET,
   //get the token as Bearer token from Authorization Header
   jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {
   try {
+    console.log("heslo");
     //Pass the user details to the next middleware
     //console.log(done.name);
     return done(null, token.userId);
   } catch (error) {
+    console.log("helo");
     done(error);
   }
 }));

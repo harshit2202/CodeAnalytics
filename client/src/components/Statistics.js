@@ -14,35 +14,54 @@ class Statistics extends Component {
     
 
     render() {
-    
-    let submissions = this.props.subdata;
-    let datapoints = [];
-    var map = new Map();
+    let submissions = this.props.subdata.tagspie;
     console.log(submissions);
-    for(let i=0;i<submissions.length;i++)
+    let datapoints = [];
+    let total=0
+    for(var key in submissions)
     {
-        if(map.has(submissions[i].submissionStatus))
-        {
-            var pval = map.get(submissions[i].submissionStatus);
-            map.set(submissions[i].submissionStatus,pval+1);      
-        }
-        else
-        {
-            map.set(submissions[i].submissionStatus,1);
-        }
-        console.log(submissions[i].submissionStatus);
+        if(!key.includes('0'))
+            total=total+submissions[key];
     }
-    console.log(map);
-    var total=submissions.length;
-    var c=0;
-    for(var ke of map.keys())
+    for(var key in submissions)
     {
-        // datapoints.push("hello");
-        console.log((map.get(ke)*100)/total);
-        datapoints.push({y : (map.get(ke)*100)/total , label : ke});
+        if(!key.includes('0'))
+        {
+            var val = submissions[key];
+            datapoints.push({y : (submissions[key]*100)/total , label : key})
+        }
     }
-    console.log(datapoints);
+    let submissions2 = this.props.subdata.verdictspie
+    let datapoints2 = [];
+    let total2=0
+    for(var key in submissions2)
+    {
+        total2=total2+submissions2[key];
+    }
+    for(var key in submissions2)
+    {
+        var val = submissions2[key];
+        console.log(key + "  "  + submissions2[key]);
+        datapoints2.push({y : (submissions2[key]*100)/total2 , label : key})
+    }
     const options = {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "Tags"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 0,
+            toolTipContent: "<b>{label}</b>: {y}%",
+            // showInLegend: "true",
+            legendText: "{label}",
+            indexLabelFontSize: 16,
+            indexLabel: "{label} - {y}%",
+            dataPoints: datapoints
+        }]
+    }
+    const options2 = {
         exportEnabled: true,
         animationEnabled: true,
         title: {
@@ -52,11 +71,11 @@ class Statistics extends Component {
             type: "pie",
             startAngle: 0,
             toolTipContent: "<b>{label}</b>: {y}%",
-            showInLegend: "true",
+            // showInLegend: "true",
             legendText: "{label}",
             indexLabelFontSize: 16,
             indexLabel: "{label} - {y}%",
-            dataPoints: datapoints
+            dataPoints: datapoints2
         }]
     }
     return (
@@ -64,7 +83,10 @@ class Statistics extends Component {
         <CanvasJSChart options = {options}
             /* onRef={ref => this.chart = ref} */
         />
-        
+        <br / >
+        <CanvasJSChart options = {options2}
+            /* onRef={ref => this.chart = ref} */
+        />
     </div>
     );
   }

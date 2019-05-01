@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect ,Link} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -15,7 +15,6 @@ class Register extends Component {
       redirect: true
     })
   }
-  
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to={
@@ -24,12 +23,14 @@ class Register extends Component {
           state : {
               username : this.state.username , 
               email : this.state.email ,
-              name : this.state.first_name + " " + this.state.last_name
+              name : this.state.first_name + " " + this.state.last_name,
+              firsttime : true
           }
         }
       } />
     }
   }
+
   handleClick()
   {
     console.log("hello");
@@ -39,7 +40,8 @@ class Register extends Component {
       firstName : this.state.first_name,
       lastName : this.state.last_name,
       email : this.state.email,
-      password : this.state.password
+      password : this.state.password,
+      firsttime : true
     })
     .then(function (response) {
       var token = response.data.token;
@@ -53,15 +55,15 @@ class Register extends Component {
         alert("Username or Email already exists");
         this.setState(
           {
-            username : z"" ,
+            username : "" ,
             email : ""
           }
         )
       }
         
-      alert(error.response.data);
-      console.log(error.response.status);
-    });
+    //   alert(error.response.data);
+    //   console.log(error.response.status);
+    // });
 
   }
   constructor(props){
@@ -72,7 +74,9 @@ class Register extends Component {
       email:'',
       password:'',
       username:'',
-      redirect : false
+      firsttime : false,
+      redirect : false,
+      redirect2 : false
     }
   }
   render() {
@@ -118,6 +122,7 @@ class Register extends Component {
              />
            <br/>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <Link to='/login'><RaisedButton label="Already a User,Login" primary={true} style={style}/></Link>          
           </div>
          </MuiThemeProvider>
       </div>

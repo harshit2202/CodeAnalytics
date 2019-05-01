@@ -17,8 +17,12 @@ router.post('/signup' , function (req , res , next) {
       else
         return next(err);
     }
-    else
+    else{
+
+      console.log("123");
       return res.redirect(307 , '/auth/login');
+
+    }
 
   })(req , res , next);
 });
@@ -26,6 +30,8 @@ router.post('/signup' , function (req , res , next) {
 router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {     
         
+
+      console.log("12213123123");
 
         if(!user)
           return res.json( {error : 'Invalid username or password!'});

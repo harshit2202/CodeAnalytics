@@ -1,24 +1,58 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, TextField, RaisedButton } from 'material-ui';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 class Login extends Component {
   
-    setRedirect(){
+    setRedirect(val){
         this.setState({
-          redirect: true
-        })
+          redirect: true,
+          name : val
+         })
       }
       
       renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/Dashboard' />
+          return <Redirect to={
+            {
+              pathname : '/dashboard',
+              state : {
+                  username : this.state.username , 
+                  name : this.state.name,
+                  firsttime : false
+              }
+            }
+          } />
         }
       }
+
     handleClick(event){
         
-        alert("Login Successful UserName = " + this.state.username + " and Password = " + this.state.password)
-        
+        var that = this;
+        axios.post('http://127.0.0.1:3000/auth/login', {
+        username : this.state.username,
+        password : this.state.password
+        })
+        .then(function (response) {
+        var token = response.data.data.token;
+        console.log(token);
+        console.log(response.data);
+        cookies.set('token',token,{ path: '/' });
+        // let val=response.data.username  
+        that.setRedirect();
+        })
+        .catch(function (error) {
+        console.log(error);
+        if(error.response.status === 409) {
+            alert("Username or Email already exists");
+        }
+            
+        alert(error.response.data);
+        console.log(error.response.status);
+        });        
     }
     constructor(props) {
       super(props)
@@ -26,6 +60,8 @@ class Login extends Component {
       this.state = {
          username : '',
          password : '',
+         name : '',
+         firsttime : false,
          redirect : false
       }
     }
@@ -33,6 +69,7 @@ class Login extends Component {
     render() {
         return (
             <div>
+                  {this.renderRedirect()}
                 <MuiThemeProvider>
                     <div>
                         <AppBar title = "Login" />

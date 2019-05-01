@@ -23,17 +23,21 @@ const styles = theme => ({
   },
 });
 
-class Tableclass extends Component {
+class UProblemstable extends Component {
 
     constructor(props) {
       super(props)
-        console.log("COnstructor")
+    
+      this.state = {
+          
+      }
     }
+    
    
   render() {
     const { classes } = this.props;
-    console.log(this.props.subdata.submissions);
-    if(this.props.subdata.submissions.length>0)
+    console.log(this.props.subdata);
+    if(this.props.subdata.length>0)
     {
       return (
       <div>
@@ -42,20 +46,14 @@ class Tableclass extends Component {
         <TableHead>
           <TableRow>
             <TableCell align="center">Site Profile</TableCell>
-            <TableCell align="center">Time Of Submission</TableCell>
-            <TableCell align="center">Problem </TableCell>
-            <TableCell align="center">Language</TableCell>
-            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Solved Problems</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.subdata.submissions.map((row, id) => (
+          {this.props.subdata.map((row, id) => (
             <TableRow key={id}>
-              <TableCell align="center">CodeChef</TableCell>
-              <TableCell align="center">{row.time}</TableCell>
-              <TableCell align="center"><a href={row.problem.link}>{row.problem.name}</a></TableCell>
-              <TableCell align="center">{row.language}</TableCell>
-              <TableCell align="center">{row.verdict}</TableCell>
+              <TableCell align="center">Codeforces</TableCell>
+              <TableCell align="center"><a href={`/problempage/${row.questionID}`}>Problem</a></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -72,8 +70,8 @@ class Tableclass extends Component {
   }
 }
 
-Tableclass.propTypes = {
+UProblemstable.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-export default withStyles(styles)(Tableclass)
+export default withStyles(styles)(UProblemstable)

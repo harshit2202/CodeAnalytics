@@ -29,6 +29,7 @@ class Handles extends Component {
               username : this.state.username ,
               email : this.state.email ,
               name : this.state.name ,
+              firsttime : true
           }
         }
       } />
@@ -36,36 +37,38 @@ class Handles extends Component {
   }
   handleClick()
   {
-    var that = this;
-    axios.post('http://127.0.0.1:3000/users/handles', {
-      codeforcesHandle : this.state.codeforceshandle,
-      codechefHandle : this.state.codechefhandle,
-      hackerearthHandle : this.state.hackerearthhandle,
-    } , {
-      headers : {
-        'Authorization' : cookies.get('token')
-      }
-    })
-    .then(function (response) {
+    this.setRedirect();
+    // console.log(cookies.get('token'));
+    // var that = this;
+    // axios.post('http://127.0.0.1:3000/users/handles', {
+    //   codeforcesHandle : this.state.codeforceshandle,
+    //   codechefHandle : this.state.codechefhandle,
+    //   hackerearthHandle : this.state.hackerearthhandle,
+    // } , {
+    //   headers : {
+    //     'Authorization' : cookies.get('token')
+    //   }
+    // })
+    // .then(function (response) {
 
-      console.log(response.data);
-      zz
+    //   console.log(response.data);
+    //   that.setRedirect();
       
-    })
-    .catch(function (error) {
-      if(error.response.code === 409) {
-        alert("Username or Email already exists");
-        this.setState(
-          {
-            username : "" ,
-            email : ""
-          }
-        )
-      }
+    // })
+    // .catch(function (error) {
+    //   if(error.response.code === 409) {
+    //     alert("Username or Email already exists");
+    //     this.setState(
+    //       {
+    //         username : "" ,
+    //         email : ""
+    //       }
+    //     )
+    //   }
         
-      alert(error.response.data);
-      console.log(error.response.status);
-    });
+    //   alert(error.response.data);
+    //   console.log(error.response.status);
+    // });
 
   }
   constructor(props){
@@ -79,6 +82,7 @@ class Handles extends Component {
       username : this.props.location.state.username ,
       email : this.props.location.state.email ,
       name : this.props.location.state.name , 
+      firsttime : true,
       redirect : false
      }
   }

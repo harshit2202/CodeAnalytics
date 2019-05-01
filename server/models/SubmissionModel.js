@@ -57,6 +57,8 @@ SubmissionSchema.pre('validate' , async function(next) {
         this.verdict = 'Memory Limit Exceeded';
     if(verdict.includes('hacked'))
         this.verdict = 'Hacked';
+    if(verdict.includes('skipped'))
+        this.verdict = 'Skipped';
 
 
     // let date = String(this.time);
