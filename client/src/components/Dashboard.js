@@ -23,6 +23,7 @@ class Dashboard extends Component {
        unsolved : [] , 
        tagspie : [] ,
        verdictspie : [] , 
+       heat_graph : [],
        username : this.props.location.state.username ,
        email : this.props.location.state.email ,
        name : this.props.location.state.name , 
@@ -49,7 +50,8 @@ class Dashboard extends Component {
         tagspie : response.data.data.tags_pie,
         unsolved : response.data.data.unsolved ,
         solved : response.data.data.solved,
-        verdictspie : response.data.data.verdict_pie
+        verdictspie : response.data.data.verdict_pie,
+        heat_graph : response.data.data.heat_graph
       })
       console.log(that.state);
       })
@@ -94,7 +96,7 @@ class Dashboard extends Component {
                <tr>
                  <td className="tduser">
                     <div id="userdetails" className="center">
-                      <h2>{this.state.username}</h2>
+                      <h2>Yashwardhan Gupta</h2>
                     </div>
                  </td>
                  <td className="handles"> 
