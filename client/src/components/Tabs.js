@@ -12,6 +12,9 @@ import Statistics from './Statistics.js';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
+
+import UserProblems from './UserProblems.js';
+
 // import './styles.css';
 const today = new Date();
 const randomValues = getRange(365).map(index => {
@@ -22,8 +25,6 @@ const randomValues = getRange(365).map(index => {
     count: getRandomInt(1, 3),
   };
 });
-import UserProblems from './UserProblems.js';
-
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>

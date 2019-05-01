@@ -44,7 +44,7 @@ class Register extends Component {
       firsttime : true
     })
     .then(function (response) {
-      var token = response.data.data.token;
+      var token = response.data.token;
       console.log(token);
       cookies.set('token',token,{ path: '/' });
       that.setRedirect();
@@ -61,9 +61,9 @@ class Register extends Component {
         )
       }
         
-    //   alert(error.response.data);
-    //   console.log(error.response.status);
-    // });
+      alert(error.response.data);
+      console.log(error.response.status);
+    });
 
   }
   constructor(props){
