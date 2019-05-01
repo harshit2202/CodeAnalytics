@@ -108,20 +108,26 @@ exports.fetchSubmissions = async function(req,res) {
         if(handles.codeforcesHandle)
             list = await cfScraper(handles.codeforcesHandle , handles.lastCf);
 
+
+        if(list.length > 0)
+            handles.lastCf = list[0].link;
+
+
         if(handles.codechefHandle)
              list1 = await ccscraper(handles.codechefHandle , handles.lastCc);
+
+
+        if(list1.length > 0)
+            handles.lastCc = list1[0].link;
+
 
         for(let i=0;i<list1.length;i++)
             list.push(list1[i]);
 
 
         console.log('list: ', list);
-
-        if(list.length > 0)
-            handles.lastCf = list[0].link;
         
-        if(list1.length > 0)
-            handles.lastCc = list1[0].link;
+        
 
         await handles.save();
 
@@ -139,6 +145,7 @@ exports.fetchSubmissions = async function(req,res) {
             
             list[i].problem = problem._id;
             list[i].user = req.user;
+            list[i].time = await utility.get_date(list[i].time , list[i].link);
             submission = await SubmissionModel.create(list[i]);
             problem.submissions.push(submission._id);
             await problem.save();
@@ -188,3 +195,6 @@ exports.validate = async function (req,res,next) {
     }
     next();
 }
+
+
+utility.get_date("08:29 PM 19/04/19" , "codechef");

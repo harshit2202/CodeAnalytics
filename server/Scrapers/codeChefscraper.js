@@ -24,7 +24,7 @@ async function myScraper(userName,lastLink)
 			  flag = 0;
               var mp = new Map()
               var list=[]
-              for(i=0 ; i<1 ;i++)
+              for(i=0 ; i<n ;i++)
               {
             	    html= await page.evaluate(() => document.body.innerHTML) ;
               	 	$ = cheerio.load(html);
@@ -107,7 +107,7 @@ async function myScraper(userName,lastLink)
               	 		 (
               	 		 	{
               	 		 		link : link ,
-              	 		 		date : arr[1],
+              	 		 		time : arr[1],
               	 		 		language : arr[4],
 								verdict : verdict,
 								problem : 'https://www.codechef.com/problems/'+list[i][1]
