@@ -10,48 +10,59 @@ const NewProblemScraper = require('../Scrapers/newProblemScraper')
 exports.generate_heat_graph = async function(submissions){
 
     var dict = {};
-
+    // console.log(submissions);
     for(let i=0; i<submissions.length; i++){
-        var date = submissions[i].date;
+        var date = submissions[i].time;
         var ans;
 
         if(submissions[i].problem.link.includes("codeforces")){
             //Jan/22/2019
             var list = date.split(" ");
             var arr = list[0].split("/");
-
+            console.log(list[0]);
             var month;
-            if(list[0]=='Jan')  month = "01";
-            if(list[0]=='Feb')  month = "02";
-            if(list[0]=='Mar')  month = "03";
-            if(list[0]=='Apr')  month = "04";
-            if(list[0]=='May')  month = "05";
-            if(list[0]=='Jun')  month = "06";
-            if(list[0]=='Jul')  month = "07";
-            if(list[0]=='Aug')  month = "08";
-            if(list[0]=='Sep')  month = "09";
-            if(list[0]=='Oct')  month = "10";
-            if(list[0]=='Nov')  month = "11";
-            if(list[0]=='Dec')  month = "12";
-            ans = arr[2] + "-" + arr[1] +  "-" + month;
+            if(arr[0] === "Jan")  month = "01";
+            if(arr[0] ===  "Feb"){  month = "02"; }
+            if(arr[0] ===  "Mar"){  month = "03"; }
+            if(arr[0] ===  "Apr"){  month = "04"; }
+            if(arr[0] ===  "May"){  month = "05"; }
+            if(arr[0] ===  "Jun"){  month = "06"; }
+            if(arr[0] ===  "Jul"){  month = "07"; }
+            if(arr[0] ===  "Aug"){  month = "08"; }
+            if(arr[0] ===  "Sep"){  month = "09"; }
+            if(arr[0] ===  "Oct"){  month = "10"; }
+            if(arr[0] ===  "Nov"){  month = "11"; }
+            if(arr[0] ===  "Dec"){  month = "12"; }
+                        
+            ans = arr[2] + "-"   + month+  "-" + arr[1];
+            // console.log(month);
+            // console.log(ans);
         }
 
         else{
             //02:22 PM 20/04/19
-            var list = date.split(" ");
-            var arr = list[2].split("/");
+            if(date)
+            {
+                var list = date.split(" ");
+                var arr = list[2].split("/");
 
-            ans = "20" + arr[2] + "-" + arr[0] + "-" + arr[1];
-
+                ans = "20" + arr[2]  + "-" + arr[1] + "-" + arr[0];
+            }
+            else
+            {
+                continue;
+            }
         }
-        ans = ans + "T00:00:00.000Z";
+        ans = ans + "T00:00:00Z";
 
         if( ans in dict)
             dict[ans] = dict[ans] + 1;
         else
             dict[ans] = 1;
     }
-
+    console.log("HERE");
+  //  console.log(dict);
+    return dict;
 }
 
 exports.generate_verdict_pie = async function(submissions){
