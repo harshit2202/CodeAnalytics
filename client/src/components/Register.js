@@ -61,9 +61,9 @@ class Register extends Component {
         )
       }
         
-      alert(error.response.data);
-      console.log(error.response.status);
-    });
+    //   alert(error.response.data);
+    //   console.log(error.response.status);
+    // });
 
   }
   constructor(props){
