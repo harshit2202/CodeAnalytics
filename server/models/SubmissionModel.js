@@ -26,7 +26,8 @@ const SubmissionSchema = new Schema({
     },
 
     time : {
-        type : String
+        type : Date,
+        default : Date.now()
     },
 
     language : {
@@ -86,6 +87,47 @@ SubmissionSchema.pre('validate' , async function(next) {
 
     //     let s1 = s[2] + ' ' + s[0] + ' ' + 'UTC+5.5'; 
     //     this.time = new Date(s1);
+    // }
+
+
+    var ans;
+
+    var date = this.time;
+    console.log('date: ', date);
+
+    // if(this.link.includes("codeforces")){
+    //     //Apr/24/2019 13:25UTC+5.5
+    //     var arr = date.split(" ");
+    //     var list = arr[0].split("/");
+
+    //     var month;
+    //     if(list[0]=='Jan')  month = "01";
+    //     if(list[0]=='Feb')  month = "02";
+    //     if(list[0]=='Mar')  month = "03";
+    //     if(list[0]=='Apr')  month = "04";
+    //     if(list[0]=='May')  month = "05";
+    //     if(list[0]=='Jun')  month = "06";
+    //     if(list[0]=='Jul')  month = "07";
+    //     if(list[0]=='Aug')  month = "08";
+    //     if(list[0]=='Sep')  month = "09";
+    //     if(list[0]=='Oct')  month = "10";
+    //     if(list[0]=='Nov')  month = "11";
+    //     if(list[0]=='Dec')  month = "12";
+    //     ans = list[2] + "-" + list[1] +  "-" + month;
+
+    //     arr = arr[1].split(':');
+    //     ans = ans + "T" +  arr[0] + ":" + arr[1] + ":00.000Z";
+    //     this.time = ans;
+    // }
+
+    // else{
+    //     //02:22 PM 20/04/19
+    //     var list = date.split(" ");
+    //     var arr = list[2].split("/");
+
+    //     ans = "20" + arr[2] + "-" + arr[0] + "-" + arr[1];
+    //     ans = ans + "T00:00:00.000Z";
+    //     this.time = ans;
     // }
 
     next();
